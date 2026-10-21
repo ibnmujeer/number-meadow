@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; media-src 'self' data:; connect-src 'none'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#FBF6EC">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Meadow">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="app/assets/icons/apple-touch-icon.png">
+<link rel="icon" href="data:,">
+<title>Number Meadow</title>
+<link rel="stylesheet" href="app/styles/tokens.css">
+<link rel="stylesheet" href="app/styles/fonts.css">
+<link rel="stylesheet" href="app/styles/base.css">
+<link rel="stylesheet" href="app/styles/controls.css">
+<link rel="stylesheet" href="app/styles/buddies.css">
+<link rel="stylesheet" href="app/styles/looks.css">
+<link rel="stylesheet" href="app/styles/home-map.css">
+<link rel="stylesheet" href="app/styles/screens.css">
+<link rel="stylesheet" href="app/styles/mission.css">
+<link rel="stylesheet" href="app/styles/counters.css">
+<link rel="stylesheet" href="app/styles/band2.css">
+<link rel="stylesheet" href="app/styles/band3.css">
+<link rel="stylesheet" href="app/styles/hints.css">
+<link rel="stylesheet" href="app/styles/freeplay.css">
+<link rel="stylesheet" href="app/styles/motion.css">
+<link rel="stylesheet" href="app/styles/adults.css">
+</head>
+<body>
+<div id="app"></div>
+<noscript><p style="font-size:24px;padding:16px">Please turn on JavaScript to play.</p></noscript>
+<script src="app/core/nba.js"></script>
+<script src="app/data/representations.js"></script>
+<script src="app/data/concepts.js"></script>
+<script src="app/data/activities.js"></script>
+<script src="app/data/difficulty.js"></script>
+<script src="app/data/difficulty-band3.js"></script>
+<script src="app/data/worlds.js"></script>
+<script src="app/data/buddies.js"></script>
+<script src="app/data/legacy-heroes.js"></script>
+<script src="app/data/curriculum.js"></script>
+<script src="app/data/home-activities.js"></script>
+<script src="app/data/home-activities-band3.js"></script>
+<script src="app/data/report-prompt.js"></script>
+<script src="app/data/feedback-lines.js"></script>
+<script src="app/data/feedback-lines-band3.js"></script>
+<script src="app/data/rewards.js"></script>
+<script src="app/data/freeplay.js"></script>
+<script src="app/data/placement.js"></script>
+<script src="app/core/config.js"></script>
+<script src="app/core/util.js"></script>
+<script src="app/core/catalog.js"></script>
+<script src="app/core/number-words.js"></script>
+<script src="app/core/question-types-band1.js"></script>
+<script src="app/core/question-types-band2.js"></script>
+<script src="app/core/question-types-band2b.js"></script>
+<script src="app/core/question-types-band2c.js"></script>
+<script src="app/core/question-types-band2d.js"></script>
+<script src="app/core/question-types-band2e.js"></script>
+<script src="app/core/question-types-band3a.js"></script>
+<script src="app/core/question-types-band3b.js"></script>
+<script src="app/core/question-types-band3c.js"></script>
+<script src="app/core/question-types-band3d.js"></script>
+<script src="app/core/question-types-band3e.js"></script>
+<script src="app/core/question-types-band3f.js"></script>
+<script src="app/core/question-types.js"></script>
+<script src="app/core/generator.js"></script>
+<script src="app/core/feedback.js"></script>
+<script src="app/core/hint-ladder-band2.js"></script>
+<script src="app/core/hint-ladder-band2c.js"></script>
+<script src="app/core/hint-ladder-band2d.js"></script>
+<script src="app/core/hint-ladder-band2e.js"></script>
+<script src="app/core/hint-ladder-band3a.js"></script>
+<script src="app/core/hint-ladder-band3b.js"></script>
+<script src="app/core/hint-ladder-band3c.js"></script>
+<script src="app/core/hint-ladder-band3d.js"></script>
+<script src="app/core/hint-ladder-band3e.js"></script>
+<script src="app/core/hint-ladder-band3f.js"></script>
+<script src="app/core/hint-ladder.js"></script>
+<script src="app/core/growth.js"></script>
+<script src="app/core/error-engine.js"></script>
+<script src="app/core/mastery-engine.js"></script>
+<script src="app/core/adaptive-engine.js"></script>
+<script src="app/core/targets.js"></script>
+<script src="app/core/prereq-engine.js"></script>
+<script src="app/core/prereq-pick.js"></script>
+<script src="app/core/placement-engine.js"></script>
+<script src="app/core/assessment-engine.js"></script>
+<script src="app/core/learning-engine.js"></script>
+<script src="app/core/adult-words.js"></script>
+<script src="app/core/child-settings.js"></script>
+<script src="app/core/look.js"></script>
+<script src="app/core/usage-math.js"></script>
+<script src="app/core/review-engine.js"></script>
+<script src="app/core/review-pick.js"></script>
+<script src="app/core/active-time.js"></script>
+<script src="app/core/freeplay-pick.js"></script>
+<script src="app/core/freeplay-engine.js"></script>
+<script src="app/core/freeplay-stats.js"></script>
+<script src="app/core/adult-summary.js"></script>
+<script src="app/core/report-text.js"></script>
+<script src="app/storage/schema.js"></script>
+<script src="app/storage/memory-adapter.js"></script>
+<script src="app/storage/migrations.js"></script>
+<script src="app/storage/indexeddb.js"></script>
+<script src="app/storage/prefs.js"></script>
+<script src="app/storage/repository.js"></script>
+<script src="app/storage/export.js"></script>
+<script src="app/storage/import-upgraders.js"></script>
+<script src="app/storage/import-rules.js"></script>
+<script src="app/storage/import.js"></script>
+<script src="app/services/children-service.js"></script>
+<script src="app/services/write-queue.js"></script>
+<script src="app/services/learning-service.js"></script>
+<script src="app/services/review-service.js"></script>
+<script src="app/services/assessment-service.js"></script>
+<script src="app/services/placement-service.js"></script>
+<script src="app/services/usage-service.js"></script>
+<script src="app/services/freeplay-service.js"></script>
+<script src="app/services/adult-gate.js"></script>
+<script src="app/services/data-reset.js"></script>
+<script src="app/services/offline-model.js"></script>
+<script src="app/services/offline-service.js"></script>
+<script src="app/child/dom.js"></script>
+<script src="app/child/audio.js"></script>
+<script src="app/child/speech.js"></script>
+<script src="app/child/buddy-looks.js"></script>
+<script src="app/child/art.js"></script>
+<script src="app/child/counters.js"></script>
+<script src="app/child/meadow-art.js"></script>
+<script src="app/child/take-away.js"></script>
+<script src="app/child/screens.js"></script>
+<script src="app/child/look-ui.js"></script>
+<script src="app/child/renderers-band1.js"></script>
+<script src="app/child/renderers-band2.js"></script>
+<script src="app/child/renderers-band2c.js"></script>
+<script src="app/child/renderers-band2d.js"></script>
+<script src="app/child/renderers-band2e.js"></script>
+<script src="app/child/renderers-band3a.js"></script>
+<script src="app/child/renderers-band3b.js"></script>
+<script src="app/child/renderers-band3c.js"></script>
+<script src="app/child/renderers-band3d.js"></script>
+<script src="app/child/renderers-band3e.js"></script>
+<script src="app/child/renderers-band3f.js"></script>
+<script src="app/child/renderers.js"></script>
+<script src="app/child/progression-ui.js"></script>
+<script src="app/child/run-kinds.js"></script>
+<script src="app/child/hint-draw.js"></script>
+<script src="app/child/hint-draw-band1.js"></script>
+<script src="app/child/hint-draw-band2.js"></script>
+<script src="app/child/hint-draw-band2c.js"></script>
+<script src="app/child/hint-draw-band2d.js"></script>
+<script src="app/child/hint-draw-band2e.js"></script>
+<script src="app/child/hint-draw-band3a.js"></script>
+<script src="app/child/hint-draw-band3b.js"></script>
+<script src="app/child/hint-draw-band3c.js"></script>
+<script src="app/child/hint-draw-band3d.js"></script>
+<script src="app/child/hint-draw-band3e.js"></script>
+<script src="app/child/hint-draw-band3f.js"></script>
+<script src="app/child/hint-ui.js"></script>
+<script src="app/child/feedback-ui.js"></script>
+<script src="app/child/build-controls.js"></script>
+<script src="app/child/mission-ui.js"></script>
+<script src="app/child/assessment-ui.js"></script>
+<script src="app/child/rest-card.js"></script>
+<script src="app/child/placement-flow.js"></script>
+<script src="app/child/freeplay-flow.js"></script>
+<script src="app/child/freeplay-art.js"></script>
+<script src="app/child/freeplay-cards.js"></script>
+<script src="app/child/freeplay-ui.js"></script>
+<script src="app/child/buddy-ui.js"></script>
+<script src="app/child/game-ui.js"></script>
+<script src="app/adult/adult-kit.js"></script>
+<script src="app/adult/adult-storage.js"></script>
+<script src="app/adult/file-save.js"></script>
+<script src="app/adult/adult-gate-ui.js"></script>
+<script src="app/adult/adult-list.js"></script>
+<script src="app/adult/adult-placement.js"></script>
+<script src="app/adult/adult-child.js"></script>
+<script src="app/adult/adult-settings.js"></script>
+<script src="app/adult/adult-data.js"></script>
+<script src="app/adult/adult-about.js"></script>
+<script src="app/adult/adult-fp-more.js"></script>
+<script src="app/adult/adult-freeplay.js"></script>
+<script src="app/test-hook.js"></script>
+<script src="app/main.js"></script>
+</body>
+</html>
