@@ -1,0 +1,27 @@
+/* Number Meadow hint ladder (docs/STYLE.md sections 12 and 16, step 4): soft tints and small numerals that help a
+   child count together. Flat, no outline, no red and no cross. Motion lives in motion.css. */
+.hint-mark { background: var(--pick); border-radius: var(--r-sm); }
+span.hint-mark { padding: 0 0.15em; }
+.hint-ring { background: var(--sunk); border-radius: var(--r-sm); }
+.hint-fill { background: var(--paper); border-radius: var(--r-sm); }
+.hint-c.hint-outline { opacity: 0.55; }
+/* A small numeral on a counter, a tile or a dot. */
+.hint-n {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-size: max(11px, calc(var(--u) * 0.95)); font-weight: var(--fw-strong); line-height: 1; color: var(--ink); pointer-events: none;
+}
+.nl-tile { position: relative; }
+.nl-tile .hint-n { inset: 2px 3px auto auto; display: block; font-size: max(11px, calc(var(--u) * 0.7)); }
+/* Extra counters sit beside the picture (tall pictures) or under it (wide pictures). */
+.hint-beside { margin-left: calc(var(--u) * 1.5); }
+.stage.hint-col { flex-direction: column; align-items: center; justify-content: flex-end; gap: calc(var(--u) * 0.6); }
+.hint-rows { display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * 0.2); }
+.hint-row { display: flex; gap: calc(var(--u) * 0.2); }
+.hint-deal { display: flex; align-items: flex-end; justify-content: center; gap: calc(var(--u) * 0.5); }
+.hint-dots { display: flex; flex-wrap: wrap; justify-content: center; max-width: 100%; gap: calc(var(--u) * 0.4); }
+.hint-dot {
+  position: relative; flex: none; width: max(1.3rem, calc(var(--u) * 1.2)); height: max(1.3rem, calc(var(--u) * 1.2));
+  background: var(--sunk); border: 2px solid var(--edge); border-radius: 50%;
+}
+.hint-dot.on { background: var(--pick); border-color: var(--pick-deep); }
+.hint-dot .hint-n { font-size: 0.8rem; }

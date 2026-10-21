@@ -1,0 +1,158 @@
+/*
+ * Band-2 (ages 7 to 9) place value and counting pictures (step 10 sub-build A). Two NEW ways of showing:
+ * base-ten pieces (seeds, bead rods and flat tiles, STYLE H5) and the place value chart. The screens are a
+ * little less childlike than band 1 (D10-4 = A) only by carrying bigger numbers and a denser layout; the
+ * Meadow pieces, palette and tokens are unchanged. All colour comes from the token palette; every shape is
+ * flat with no gradient, no outline on illustrations, no 0-blur shadow (STYLE 6, 7.1). No animation here;
+ * the hint ladder reuses the shared hint-flash / hint-mark (motion.css, hints.css).
+ */
+
+/* The plain prompt card (skip counting, counting to 1000, rounding): the sequence or the number. */
+.b2-card {
+  flex: 0 1 auto; max-width: 100%; overflow-wrap: anywhere; padding: calc(var(--u) * 0.6) calc(var(--u) * 1.2); text-align: center;
+  background: var(--paper); border: 2px solid var(--edge); border-radius: var(--r-lg); box-shadow: var(--shadow-1);
+  color: var(--ink); font-weight: var(--fw-strong); line-height: 1.2;
+}
+.b2-line { font-size: max(28px, calc(var(--u) * 2.4)); }
+.b2-line + .b2-line { margin-top: calc(var(--u) * 0.4); font-size: max(28px, calc(var(--u) * 3)); }
+
+/* Base-ten pieces laid out in hundreds / tens / ones columns, each under a plain word label. The pieces
+   reuse the shared counter art (.counter, .rod, .tile), so colour comes from their c-<tone> tone names. */
+.b2-pattern { align-items: center; justify-content: center; }
+.b2-blocks { display: flex; align-items: flex-end; justify-content: center; gap: calc(var(--u) * 1); flex-wrap: wrap; }
+.b2-pvcol { display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * 0.4); }
+.b2-pieces { display: flex; align-items: flex-end; justify-content: center; gap: calc(var(--u) * 0.3); flex-wrap: wrap; }
+.b2-tiles .b2-pieces { max-width: calc(var(--u) * 32); }
+.b2-rods .b2-pieces { max-width: calc(var(--u) * 13); }
+.b2-seeds .b2-pieces { max-width: calc(var(--u) * 7); }
+.b2-plabel { font-size: max(16px, calc(var(--u) * 1.1)); font-weight: var(--fw-strong); color: var(--ink-soft); }
+.b2-none { font-size: max(20px, calc(var(--u) * 1.6)); font-weight: var(--fw-strong); color: var(--ink-soft); }
+
+/* The place value chart: hundreds / tens / ones columns, a heading and one digit each. Stroke-only wells
+   (edge border on a sunk fill), ink digits (11.19:1 on paper). Two charts side by side for a compare. */
+.b2-compare { align-items: center; justify-content: center; gap: calc(var(--u) * 1); flex-wrap: wrap; }
+.b2-chart { display: flex; align-items: stretch; gap: calc(var(--u) * 0.3); }
+.b2-chartcol {
+  display: flex; flex-direction: column; align-items: center;
+  min-width: max(44px, calc(var(--u) * 3)); padding: calc(var(--u) * 0.3);
+  border: 2px solid var(--edge); border-radius: var(--r-md); background: var(--sunk);
+}
+.b2-chead { font-size: max(16px, calc(var(--u) * 1.1)); font-weight: var(--fw-strong); color: var(--ink-soft); }
+.b2-cdigit { font-size: max(28px, calc(var(--u) * 2.8)); font-weight: var(--fw-strong); color: var(--ink); }
+.b2-or { font-size: max(20px, calc(var(--u) * 1.8)); font-weight: var(--fw-strong); color: var(--ink-soft); }
+
+/* Sub-build B: multi-digit add/sub pictures. All colour comes from tokens; shapes are flat (STYLE 6, 7.1). */
+
+/* Facts: two groups of counters with a sign between them; the taken-away ones are ringed by position. */
+.b2-fact { display: flex; align-items: center; justify-content: center; gap: calc(var(--u) * 0.6); flex-wrap: wrap; }
+.b2-fgroup { display: flex; align-items: center; justify-content: center; gap: calc(var(--u) * 0.2); flex-wrap: wrap; max-width: calc(var(--u) * 11); }
+.b2-fsign { font-size: max(24px, calc(var(--u) * 2)); font-weight: var(--fw-strong); color: var(--ink-soft); }
+.b2-fc { display: inline-flex; }
+.b2-ring { outline: 2px dashed var(--edge); outline-offset: 1px; border-radius: var(--r-sm); opacity: 0.55; }
+
+/* Column add/sub: two place value charts stacked, with the operation sign on the left of the lower row. */
+.b2-col { display: flex; flex-direction: column; align-items: flex-end; gap: calc(var(--u) * 0.3); }
+.b2-colrow { display: flex; align-items: center; gap: calc(var(--u) * 0.3); }
+.b2-colsign { font-size: max(24px, calc(var(--u) * 2.2)); font-weight: var(--fw-strong); color: var(--ink-soft); min-width: calc(var(--u) * 1.4); text-align: center; }
+
+/* Bar model: a whole bar split into stroke-only part segments, each with its number. */
+.b2-bars { display: flex; align-items: center; justify-content: center; width: 100%; }
+.b2-bar { display: flex; align-items: stretch; width: 100%; max-width: calc(var(--u) * 20); height: calc(var(--u) * 2.6); border: 2px solid var(--edge); border-radius: var(--r-md); overflow: hidden; }
+.b2-bar-seg { display: flex; align-items: center; justify-content: center; border-right: 2px solid var(--edge); background: var(--sunk); }
+.b2-bar-seg:last-child { border-right: none; }
+.b2-bar-start { background: var(--paper); }
+.b2-bar-take { opacity: 0.6; }
+.b2-bar-num { font-size: max(18px, calc(var(--u) * 1.4)); font-weight: var(--fw-strong); color: var(--ink); }
+
+/* The regroup trade flourish: the hint ladder adds b2-trade-carry / b2-trade-borrow to the ones column.
+   The pulse is carried by the shared hint-flash (hints.css), which does not animate under reduced motion. */
+.b2-trade-carry, .b2-trade-borrow { border-color: var(--edge); }
+
+/* Sub-build C: multiplication / division pictures. All colour comes from the counter c-<tone> tones; the
+   shapes are flat with no gradient and no outline on the counters (STYLE 6, 7.1). No animation. */
+
+/* Array (rows x columns of counters): equal rows of counters stacked, so a times fact reads as rows of a
+   group. Each row is a flex row; the rows stack with a small gap. */
+.b2-array { display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * 0.3); }
+.b2-arow { display: flex; align-items: center; justify-content: center; gap: calc(var(--u) * 0.3); }
+
+/* Groups (div.group): the counters put onto little plates, one plate per group; the plates wrap in a row. */
+.b2-groups { display: flex; align-items: center; justify-content: center; gap: calc(var(--u) * 0.6); flex-wrap: wrap; max-width: calc(var(--u) * 24); }
+.b2-plate {
+  display: flex; align-items: center; justify-content: center; gap: calc(var(--u) * 0.2); flex-wrap: wrap;
+  max-width: calc(var(--u) * 5 + 4px); padding: calc(var(--u) * 0.3);
+  border: 2px solid var(--edge); border-radius: var(--r-md); background: var(--sunk);
+}
+
+/* Sub-build D: fraction pictures. The NEW 'fraction-bar' way of showing. All colour comes from the token
+   palette (shaded parts use the moss tone, like the Meadow seeds); every shape is flat with a stroke-only
+   outline, no gradient, no hex (STYLE 6, 7.1). No animation; the hint ladder reuses the shared hint-flash /
+   hint-mark. The fraction wall (frac.compare-wall) is a STACK of these bars, not a separate representation. */
+
+/* A single fraction bar: equal segments inside a bordered bar; shaded segments carry the moss tone. */
+.b2-fbar {
+  display: flex; align-items: stretch; width: 100%; max-width: calc(var(--u) * 20);
+  height: calc(var(--u) * 2.4); border: 2px solid var(--edge); border-radius: var(--r-md); overflow: hidden; background: var(--paper);
+}
+/* The scene wrapper shrinks to its content, so a bar with width: 100% had no width to fill and collapsed to its two borders (audit A2).
+   A single bar, a stack and a wall get a definite width in --u units (the stage scales --u), never wider than the stage. */
+.b2-pattern > .b2-fbar { width: calc(var(--u) * 20); max-width: 100%; }
+.b2-fseg { flex: 1 1 0; border-right: 2px solid var(--edge); background: var(--paper); }
+.b2-fseg:last-child { border-right: none; }
+.b2-fseg.b2-fon { background: var(--moss); }
+
+/* A stack of fraction bars (frac-unit compare, the fraction wall): each row is a plain word label and a bar. */
+.b2-fstack, .b2-fwall { display: flex; flex-direction: column; align-items: stretch; gap: calc(var(--u) * 0.5); width: calc(var(--u) * 24); max-width: 100%; }
+.b2-frow { display: flex; align-items: center; gap: calc(var(--u) * 0.6); }
+.b2-flabel { flex: none; min-width: calc(var(--u) * 5.5); text-align: right; font-size: max(16px, calc(var(--u) * 1.1)); font-weight: var(--fw-strong); color: var(--ink-soft); }
+
+/* A 0 to 1 number line split into equal parts: a rail with evenly spaced ticks; the marked ticks carry a dot. */
+.b2-fline { display: flex; flex-direction: column; align-items: center; }
+.b2-flrow { display: flex; }
+.b2-fltile { width: calc(var(--u) * 2.2); height: calc(var(--u) * 1.4); border: 2px solid var(--edge); border-right-width: 1px; background: var(--paper); }
+.b2-fltile:first-child { border-top-left-radius: var(--r-sm); border-bottom-left-radius: var(--r-sm); }
+.b2-fltile:last-child { border-right-width: 2px; border-top-right-radius: var(--r-sm); border-bottom-right-radius: var(--r-sm); }
+.b2-flticks { display: flex; }
+.b2-fltick { position: relative; width: calc(var(--u) * 2.2); height: calc(var(--u) * 0.8); border-left: 2px solid var(--edge); }
+.b2-fltick:last-child { width: 2px; }
+.b2-flnum { position: absolute; top: calc(var(--u) * 0.9); left: calc(var(--u) * -0.4); font-size: max(16px, calc(var(--u) * 1.1)); font-weight: var(--fw-strong); color: var(--ink); }
+.b2-fltick.b2-flon::before { content: ""; position: absolute; top: calc(var(--u) * -1.9); left: calc(var(--u) * -0.5); width: var(--u); height: var(--u); border-radius: 50%; background: var(--moss); }
+
+/* Sub-build E: negatives, order-of-operations and missing-number pictures. All colour comes from the token
+   palette; every shape is flat with a stroke-only outline, no gradient, no hex (STYLE 6, 7.1). No animation;
+   the balance tip and the mystery fill are applied at once, so they are correct even under reduced motion. */
+
+/* Vertical number line (the NEW 'vertical-number-line' way of showing, D10-2 = A): a stood-up rail of rows,
+   zero marked, going down into the negative rows (the thermometer / floors-below-ground picture). */
+.b2-vline { display: flex; flex-direction: column; align-items: center; gap: 1px; }
+.b2-vrow { display: flex; align-items: center; gap: calc(var(--u) * 0.4); }
+.b2-vtick { width: calc(var(--u) * 1.6); height: 2px; background: var(--edge); }
+.b2-vtick.b2-vzero { height: 3px; background: var(--ink); }
+.b2-vnum { line-height: 1; min-width: calc(var(--u) * 1.4); font-size: max(11px, calc(var(--u) * 1)); font-weight: var(--fw-strong); color: var(--ink-soft); }
+.screen[data-type="neg"] .stage { padding-top: var(--sp-1); padding-bottom: var(--sp-1); } /* 23 rows of labels need every pixel on a 320 px phone */
+/* More than 12 steps: a tick for every step, one unit tall each, a label on every second tick (the other labels are only invisible; the answer's shows). */
+.b2-vthin { gap: 0; }
+.b2-vthin .b2-vrow { height: var(--u); }
+.b2-vsoft { visibility: hidden; }
+.b2-vrow-on .b2-vsoft { visibility: visible; }
+.b2-vrow-on .b2-vtick { background: var(--moss); }
+.b2-vrow-on .b2-vnum { color: var(--ink); }
+
+/* Missing-number / missing-mul-div: known groups plus a dashed mystery group standing in for the box. */
+.b2-mystery { border: 2px dashed var(--edge); border-radius: var(--r-md); min-width: calc(var(--u) * 3); min-height: calc(var(--u) * 2); align-items: center; justify-content: center; background: var(--sunk); }
+.b2-mystery-mark { font-size: max(22px, calc(var(--u) * 2)); font-weight: var(--fw-strong); color: var(--ink-soft); }
+
+/* Two-pan balance: a beam on a stand, each pan holding a row of counters. The beam tips only at rung 3. */
+.b2-balance { position: relative; display: flex; flex-direction: column; align-items: center; padding-bottom: calc(var(--u) * 0.8); }
+.b2-beam { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; transition: none; }
+.b2-beam-art { display: block; width: 100%; height: calc(var(--u) * 0.4); }
+.b2-beam-bar { stroke: var(--ink); stroke-linecap: butt; }
+.b2-pans { display: flex; align-items: flex-start; justify-content: center; gap: calc(var(--u) * 3.4); }
+.b2-pan { position: relative; display: flex; align-items: center; justify-content: center; gap: calc(var(--u) * 0.15); flex-wrap: wrap; max-width: calc(var(--u) * 5.6); min-height: calc(var(--u) * 1.6); margin-top: calc(var(--u) * 0.8); padding: calc(var(--u) * 0.3); border: 3px solid var(--ink-soft); border-bottom-width: 6px; border-radius: var(--r-sm) var(--r-sm) var(--r-md) var(--r-md); background: var(--sunk); }
+.b2-pan::before { content: ""; position: absolute; left: 50%; bottom: 100%; width: 4px; height: calc(var(--u) * 0.9); margin-left: -2px; background: var(--ink-soft); }
+.b2-pivot { position: absolute; z-index: 0; left: 50%; bottom: 0; top: calc(var(--u) * 0.1); width: calc(var(--u) * 3); height: calc(100% - var(--u) * 0.1); transform: translateX(-50%); }
+.b2-pivot-tri { fill: var(--ink); stroke: var(--ink); stroke-linejoin: round; }
+.b2-pivot-post, .b2-pivot-base { fill: var(--ink); }
+.b2-beam.b2-tip-left { transform: rotate(-4deg); }
+.b2-beam.b2-tip-right { transform: rotate(4deg); }
+@media (prefers-reduced-motion: reduce) { .b2-beam { transition: none; } }

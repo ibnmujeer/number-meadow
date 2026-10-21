@@ -1,0 +1,91 @@
+/* Number Meadow Free Play (F3): the Just play button on Home, the category screen, the calm Home note and the end screen.
+   Existing tokens only; no animation of its own (the screen enter and the Next card motion come from motion.css). */
+
+/* Home: the Just play button is the first cell of the footer row, so Home keeps its height (STYLE 11: no scrolling at 360 by 640 and
+   360 by 580). On a tall screen (700 px or more) it has the row above the others to itself and is a big button. After Take a break the
+   calm note takes the place of the title, and the map gaps tighten a little so the footer stays on screen. */
+.home-foot .just-play {
+  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.1rem; min-width: 0; padding: 0.2rem;
+  text-align: center; font-size: 1.05rem; line-height: 1.1; white-space: normal; border-color: var(--go-deep);
+}
+.home-foot .just-play svg { width: 2.1rem; height: 2.1rem; flex: none; }
+@media (min-height: 700px) {
+  .home-foot { display: flex; flex-wrap: wrap; }
+  .home-foot > * { flex: 1 1 0; }
+  .home-foot .just-play { flex: 1 1 100%; flex-direction: row; gap: var(--sp-2); min-height: 4.2rem; font-size: var(--fs-l); }
+  .home-foot .just-play svg { width: 2rem; height: 2rem; }
+}
+.home-note {
+  padding: 0.1rem 0.6rem; font-size: 1.1rem; font-weight: var(--fw-strong); line-height: 1.15; text-align: center;
+  background: var(--paper); border: 2px solid var(--edge); border-radius: var(--r-md);
+}
+.has-note .map { gap: 0.5rem; }
+/* Four cells (Just play, Meadow Check, My buddy, Grown-ups) share the row on a narrow phone: smaller words, and the check name may wrap. */
+@media (max-height: 699px) {
+  .foot-four .just-play, .foot-four .adults-btn, .foot-four .mybuddy-btn { font-size: 0.8rem; }
+  .foot-four .just-play svg, .foot-four .adults-btn svg { width: 1.7rem; height: 1.7rem; }
+  .foot-four .check-tile .tile-name { white-space: normal; font-size: 0.78rem; line-height: 1.05; }
+  .foot-four .home-foot .check-tile .tile-symbol, .foot-four .check-tile .tile-symbol { width: 1.5rem; height: 1.5rem; }
+  .foot-four .check-tile .tile-symbol svg { width: 1.5rem; height: 1.5rem; }
+}
+
+/* The category screen: two columns of big picture tiles (at least 72 px each way), Mixed first and wide. */
+.fp-screen { gap: var(--sp-2); }
+.fp-note { margin: 0; padding: 0.2rem 0.6rem; font-size: 1.15rem; font-weight: var(--fw-strong); line-height: 1.2; text-align: center; background: var(--paper); border: 2px solid var(--edge); border-radius: var(--r-md); }
+.fp-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-2); align-content: start; }
+.fp-tile {
+  position: relative; display: flex; align-items: center; gap: 0.5rem; min-width: 72px; min-height: 72px; padding: 0.25rem 0.5rem; text-align: left;
+  color: var(--ink); background: var(--paper); border: 2px solid var(--wcd, var(--edge)); border-radius: var(--r-lg); box-shadow: var(--shadow-1);
+}
+.fp-wide { grid-column: 1 / -1; } /* Mixed takes the whole first row */
+.fp-tile .tile-glyph { width: 2.9rem; height: 2.9rem; }
+.fp-tile-name { flex: 1; min-width: 0; font-size: clamp(1.1rem, 5.4vw, 1.3rem); font-weight: var(--fw-strong); line-height: var(--lh-tight); overflow-wrap: anywhere; }
+.fp-tile.chosen { background: var(--pick); border-color: var(--pick-deep); border-width: 4px; padding: calc(0.25rem - 2px) calc(0.5rem - 2px); }
+.fp-tone-count { --wc: var(--sunflower); --wcd: var(--sunflower-deep); }
+.fp-tone-sense { --wc: var(--mint); --wcd: var(--mint-deep); }
+.fp-tone-place { --wc: var(--teal); --wcd: var(--teal-deep); }
+.fp-tone-frac { --wc: var(--plum); --wcd: var(--plum-deep); }
+.fp-tone-dec { --wc: var(--lavender); --wcd: var(--lavender-deep); }
+.fp-tone-pct { --wc: var(--slateblue); --wcd: var(--slateblue-deep); }
+.fp-tone-neg { --wc: var(--sky); --wcd: var(--sky-deep); }
+.fp-tone-ops { --wc: var(--apricot); --wcd: var(--apricot-deep); }
+.fp-tone-unk { --wc: var(--rose); --wcd: var(--rose-deep); }
+.fp-tone-plain { --wc: var(--sand); --wcd: var(--sand-deep); }
+
+/* Under the tiles: the quiet Include new kinds switch (Mixed only) and Go, side by side with the same height. */
+.fp-foot { display: flex; gap: var(--sp-2); margin-top: auto; }
+.fp-foot .big-btn { flex: 1 1 0; min-width: 0; min-height: max(var(--tap-min), 4rem); padding: 0.2rem 0.5rem; font-size: 1.3rem; }
+.fp-new[aria-pressed="true"] { background: var(--pick); border-color: var(--pick-deep); border-width: 4px; }
+
+/* Step 10 sub-build E: eleven categories (three more tiles, neg/ops/unk) can overflow a short phone screen
+   (STYLE 11: no scrolling). On a short viewport the tiles, the gaps and the footer buttons shrink together,
+   never below the 72 px / --tap-min touch floor (the tile and button min-height rules above still apply). */
+@media (max-height: 820px) {
+  .fp-screen { gap: 0.3rem; }
+  /* Three columns (instead of two) fits fewer rows of category tiles, which a shorter screen needs now that
+     thirteen categories exist (D10-6, step 10 sub-build E; step 11 sub-build E added Decimals and Percents);
+     Mixed still takes the whole first row. The breakpoint rose to 820 px so a 768 px tall window also fits. */
+  .fp-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.3rem; }
+  .fp-tile { flex-direction: column; justify-content: center; text-align: center; padding: 0.15rem 0.3rem; gap: 0.15rem; min-width: 0; }
+  .fp-tile .tile-glyph { width: 1.9rem; height: 1.9rem; }
+  .fp-tile-name { font-size: clamp(0.72rem, 3.6vw, 0.9rem); text-align: center; }
+  .fp-foot .big-btn { min-height: var(--tap-min); font-size: 1.1rem; }
+}
+/* On a short phone (height 700 px or less), thirteen categories plus Mixed need a fourth column so each tile keeps its 72 px touch
+   floor and the Go and quiet button still sit on screen with no scrolling (STYLE 11); the tiles stay square and above 72 px. */
+@media (max-height: 700px) {
+  .fp-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.25rem; }
+  .fp-tile .tile-glyph { width: 1.6rem; height: 1.6rem; }
+  .fp-tile-name { font-size: clamp(0.66rem, 3vw, 0.82rem); }
+}
+
+/* The end screen at the daily limit: the buddy, one warm line, two buttons of the same size and weight. */
+.fp-end { align-items: center; justify-content: center; gap: var(--sp-3); text-align: center; }
+.fp-end-buddy { width: min(8rem, 19vh); height: min(8rem, 19vh); }
+.fp-end-line { max-width: 24rem; font-size: var(--fs-l); font-weight: var(--fw-strong); line-height: var(--lh-tight); }
+.fp-end-buttons { max-width: 26rem; }
+.fp-end-buttons .rest-btn { width: 100%; min-height: 4.6rem; padding: 0.3rem 0.4rem; gap: 0.3rem; font-size: 1.3rem; }
+
+/* The Free Play header: the category label may take two lines, and a very narrow phone drops the buddy to make room for Change. */
+.kind-freeplay .world-name { white-space: normal; overflow-wrap: anywhere; }
+@media (max-width: 359px) { .kind-freeplay #mission-buddy { display: none; } }

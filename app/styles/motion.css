@@ -1,0 +1,47 @@
+/* Number Meadow motion (docs/STYLE.md section 12): every @keyframes and animation class. Slow and small:
+   every decorative duration is at least --dur-soft (400 ms), nothing repeats forever, and no animation runs
+   longer than 4.8 s. Reduced motion switches all of it off (base.css); html.nba-fast is the test speed-up. */
+@keyframes enter { from { opacity: 0; transform: translateY(0.6rem); } }
+@keyframes fade { from { opacity: 0; } }
+@keyframes pop-in { from { opacity: 0; transform: scale(0.92); } }
+@keyframes sway { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-3px); } 50% { transform: translateX(3px); } 75% { transform: translateX(-3px); } }
+@keyframes pop { 50% { transform: scale(1.04); } }
+@keyframes drop { from { opacity: 0; transform: translateY(-1rem); } }
+@keyframes bob { 50% { transform: translateY(-0.4rem); } }
+@keyframes hint-in { from { opacity: 0; transform: translateY(0.4rem); } }
+@keyframes hop-in { from { opacity: 0; } }
+@keyframes hop-again { from { opacity: 0; } }
+@keyframes hint-pulse { 50% { opacity: 0.45; } }
+@keyframes stop-sway { 50% { transform: translateY(-2px); } }
+@keyframes floating {
+  0% { transform: translate(0, 0) scale(1); }
+  31% { transform: translate(var(--x1), var(--y1)) scale(1.05); }
+  65% { transform: translate(var(--x2), var(--y2)) scale(0.8); }
+  100% { transform: translate(var(--x3), var(--y3)) scale(0.4); }
+}
+@keyframes settle { 50% { transform: scaleY(0.96); } }
+
+.screen.enter { animation: enter var(--dur-soft) var(--ease); }
+.overlay { animation: fade var(--dur-soft) var(--ease); }
+.next-box { animation: pop-in var(--dur-soft) var(--ease); }
+.growth-line { animation: fade var(--dur-slow) var(--ease) backwards; } /* quiet: a slow fade, dropped under reduced motion */
+.sway { animation: sway var(--dur-slow) var(--ease) 1; }
+.pop { animation: pop var(--dur-slow) var(--ease); }
+.hint.pop { animation: hint-in var(--dur-soft) var(--ease); } /* full-width box: slide in instead of growing past the edges */
+.drop { animation: drop var(--dur-soft) var(--ease); }
+.bounce { animation: bob var(--dur-slow) var(--ease); }
+.nl-arcs path { animation: hop-in var(--dur-soft) var(--ease) backwards; }
+/* Hint ladder (step 4): the hops play again while counting together; the counters to count next pulse three times. */
+.nl-arcs path.hint-arc { animation: hop-again var(--dur-soft) var(--ease) backwards; }
+.hint-flash { animation: hint-pulse var(--dur-slow) var(--ease) 3; }
+.world-tile.suggested { animation: stop-sway 1500ms ease-in-out 3; }
+/* World Complete: the buddy bobs twice. */
+.complete-screen .win-buddy { animation: bob var(--dur-slow) var(--ease) 2; }
+/* The take-away flight: lift (31 %), apex (65 %), landing (100 %) of one 1300 ms animation (NIT 6c). */
+.counter.floating { z-index: 2; animation: floating 1300ms var(--ease) both; }
+.basket.settle { animation: settle var(--dur-slow) var(--ease) 1; }
+
+/* ?test speed-up: setSpeed() < 1 makes every animation near-instant (the one rule allowed under 400 ms). */
+html.nba-fast *, html.nba-fast *::before, html.nba-fast *::after {
+  animation-duration: 1ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition: none !important;
+}

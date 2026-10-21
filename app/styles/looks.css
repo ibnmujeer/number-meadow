@@ -1,0 +1,8 @@
+/* Number Meadow looks (docs/STYLE.md section 8.2, step 4): the six tints that growth marks unlock. A tint only swaps the colour pair of a buddy;
+   the specific selector wins over the buddy's own colour. Accessories are drawn in code and need no rule here. */
+.buddy.tint-blush { --bb: var(--blush); --bd: var(--blush-deep); }
+.buddy.tint-butter { --bb: var(--butter); --bd: var(--butter-deep); }
+.buddy.tint-sage { --bb: var(--sage); --bd: var(--sage-deep); }
+.buddy.tint-ice { --bb: var(--ice); --bd: var(--ice-deep); }
+.buddy.tint-periwinkle { --bb: var(--periwinkle); --bd: var(--periwinkle-deep); }
+.buddy.tint-orchid { --bb: var(--orchid); --bd: var(--orchid-deep); }

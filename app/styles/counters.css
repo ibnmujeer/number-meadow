@@ -1,0 +1,218 @@
+/* Number Meadow counters and the take-away (docs/STYLE.md sections 9 and 10). Sizes are in --u (the
+   counter pitch fitStage picks); colours come from tokens through the --cc/--cb and --tb/--td pairs. */
+
+/* Counter shape rules: cc deep fill, cb base fill, cg seed groove, cd pebble speckle, cs tile score line, cr rod line. */
+.cc { fill: var(--cc); }
+.cb { fill: var(--cb); }
+.cg { fill: none; stroke: var(--cb); stroke-width: 1.2; stroke-linecap: round; }
+.cd { fill: var(--cb); }
+.cs { fill: none; stroke: var(--cb); stroke-width: 1; }
+.cr { fill: none; stroke: var(--edge); stroke-width: 1.4; stroke-linecap: round; }
+
+/* Scenery shape rules, shared with the basket and the map. */
+.tb { fill: var(--tb); }
+.td { fill: var(--td); }
+.tl { fill: none; stroke: var(--td); stroke-linecap: round; }
+.t-moss { --tb: var(--moss); --td: var(--moss-deep); }
+.t-sky { --tb: var(--sky); --td: var(--sky-deep); }
+.t-apricot { --tb: var(--apricot); --td: var(--apricot-deep); }
+.t-teal { --tb: var(--teal); --td: var(--teal-deep); }
+.t-rose { --tb: var(--rose); --td: var(--rose-deep); }
+.t-sand { --tb: var(--sand); --td: var(--sand-deep); }
+.t-mint { --tb: var(--mint); --td: var(--mint-deep); }
+.t-sunflower { --tb: var(--sunflower); --td: var(--sunflower-deep); }
+
+/* Tones: the deep tone is the counter (3:1 on the stage, the mat and the basket), the base tone its detail. */
+.c-coral { --cc: var(--coral-deep); --cb: var(--coral); }
+.c-apricot { --cc: var(--apricot-deep); --cb: var(--apricot); }
+.c-sunflower { --cc: var(--sunflower-deep); --cb: var(--sunflower); }
+.c-moss { --cc: var(--moss-deep); --cb: var(--moss); }
+.c-teal { --cc: var(--teal-deep); --cb: var(--teal); }
+.c-sky { --cc: var(--sky-deep); --cb: var(--sky); }
+.c-lavender { --cc: var(--lavender-deep); --cb: var(--lavender); }
+.c-plum { --cc: var(--plum-deep); --cb: var(--plum); }
+.c-rose { --cc: var(--rose-deep); --cb: var(--rose); }
+.c-sand { --cc: var(--sand-deep); --cb: var(--sand); }
+.c-slateblue { --cc: var(--slateblue-deep); --cb: var(--slateblue); }
+.c-mint { --cc: var(--mint-deep); --cb: var(--mint); }
+
+/* One counter keeps the old footprint: 2u by 1.2u (3u wide in "bigger"). */
+.counter, .slot {
+  position: relative; flex: none; display: block;
+  width: var(--bw, calc(var(--u) * 2)); height: calc(var(--u) * 1.2);
+}
+.counter svg, .slot svg { display: block; width: 100%; height: 100%; }
+.mat { height: calc(var(--u) * 0.5); background: var(--sand); border-radius: var(--r-sm); }
+.rod { display: inline-block; width: calc(var(--u) * 2); height: calc(var(--u) * 12.4); }
+.tile { display: inline-block; width: calc(var(--u) * 10); height: calc(var(--u) * 10); }
+.rod svg, .tile svg { display: block; width: 100%; height: 100%; }
+.sampler { display: flex; align-items: flex-end; gap: var(--u); --u: 12px; }
+
+/* Take-away: the stack centres left of the basket, which sits in the bottom-right of the content box. */
+.knock-scene {
+  align-self: stretch; width: 100%; display: flex; align-items: flex-end;
+  gap: calc(var(--u) * 1.5); padding-right: var(--sp-2);
+}
+.knock-scene > .stack { margin-inline: auto; }
+.basket {
+  flex: none; position: relative; width: calc(var(--u) * 3.2); height: calc(var(--u) * 2.2);
+  margin-bottom: var(--sp-2); transform-origin: bottom;
+}
+.basket-art { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.basket-load {
+  position: absolute; left: calc(var(--u) * 0.2); right: calc(var(--u) * 0.2);
+  bottom: calc(var(--u) * 0.2); top: calc(var(--u) * 0.4);
+  display: flex; flex-wrap: wrap-reverse; justify-content: center; align-content: flex-start;
+  gap: calc(var(--u) * 0.06) calc(var(--u) * 0.1);
+}
+/* A landed counter (and its pending slot) is the same SVG at 0.4 scale. */
+.basket-load .counter { width: calc(var(--u) * 0.8); height: calc(var(--u) * 0.48); }
+.counter.pending { visibility: hidden; }
+
+/* The flight and the basket settle are animated in motion.css. */
+
+/* Stacks, columns and the picture scenes. */
+.stack { flex: none; display: flex; flex-direction: column; align-items: stretch; }
+.cols { display: flex; align-items: flex-end; justify-content: center; gap: calc(var(--u) * 0.5); padding: 0 calc(var(--u) * 0.25); }
+.col { display: flex; flex-direction: column-reverse; width: var(--bw, calc(var(--u) * 2)); }
+.scene { flex: none; display: flex; align-items: flex-end; justify-content: center; max-width: 100%; }
+.plus {
+  flex: none; align-self: center; width: calc(var(--u) * 1.5); margin: 0 calc(var(--u) * 0.6);
+  text-align: center; font-size: calc(var(--u) * 2.5); line-height: 1; font-weight: var(--fw-strong);
+}
+.scene.towers { align-self: stretch; align-items: stretch; gap: 1.25rem; }
+.tower {
+  --bw: calc(var(--u) * 3);
+  display: flex; flex-direction: column; justify-content: flex-end; align-items: center;
+  min-width: 4.5rem; padding: var(--sp-2); background: var(--paper); border-radius: var(--r-md);
+}
+.tower.right { background: var(--pick); border-color: var(--pick-deep); }
+.groups-scene { gap: calc(var(--u) * 1.25); }
+.share-scene { flex-direction: column; align-items: center; gap: 12px; }
+.wall { display: flex; flex-direction: column-reverse; align-items: center; padding: 0 calc(var(--u) * 0.25); }
+.wall > .row { display: flex; gap: calc(var(--u) * 0.15); }
+.team { display: flex; justify-content: center; gap: 8px; }
+.share-face { width: var(--face, 3.5rem); height: var(--face, 3.5rem); }
+
+/* Number line, symbolic card and word-problem scene (DESIGN 16.3). */
+.scene-mid { align-self: center; }
+.nl { display: flex; align-items: flex-start; gap: calc(var(--u) * 0.2); }
+/* The arrow slot sits level with the tile row (below the 2u arcs and a 0.2u gap). */
+.nl-end { flex: none; width: var(--u); height: calc(var(--u) * 2); margin-top: calc(var(--u) * 2.2); display: flex; align-items: center; color: var(--edge); }
+.nl-end svg { width: 100%; height: 100%; }
+.nl-main { position: relative; flex: none; width: calc(var(--u) * 24); display: flex; flex-direction: column; gap: calc(var(--u) * 0.2); }
+.nl-arcs { display: block; width: 100%; height: calc(var(--u) * 2); overflow: visible; }
+.nl-arcs path { fill: none; stroke: var(--teal-deep); stroke-width: 0.14; stroke-linecap: round; }
+.nl-back .nl-arcs path { stroke: var(--apricot-deep); }
+.nl-row { display: flex; gap: calc(var(--u) * 0.2); }
+.nl-tile {
+  flex: none; width: calc(var(--u) * 2); height: calc(var(--u) * 2); display: flex; align-items: center; justify-content: center;
+  font-size: max(16px, calc(var(--u) * 1.05)); font-weight: var(--fw-strong); line-height: 1; letter-spacing: -0.04em;
+  background: var(--paper); border: 2px solid var(--edge); border-radius: var(--r-sm);
+}
+.nl-tile.nl-start { background: var(--pick); border-color: var(--pick-deep); }
+.nl-tile.nl-land { background: var(--paper); border-style: dashed; border-color: var(--go-deep); }
+/* The start marker is 2u but never below 40 px (STYLE 8), centred under the start tile. */
+.nl-marks { position: relative; height: max(40px, calc(var(--u) * 2)); }
+.nl-face {
+  position: absolute; top: 0; width: max(40px, calc(var(--u) * 2)); height: max(40px, calc(var(--u) * 2));
+  margin-left: min(0px, calc(var(--u) - 20px));
+}
+.sym-card {
+  flex: none; padding: calc(var(--u) * 0.5) calc(var(--u) * 1.2); white-space: nowrap;
+  font-size: max(28px, calc(var(--u) * 3)); font-weight: var(--fw-strong); line-height: 1.2;
+  background: var(--paper); border: 2px solid var(--edge); border-radius: var(--r-md); box-shadow: var(--shadow-1);
+}
+.word-scene { align-items: flex-end; gap: var(--u); }
+.ws-face { width: calc(var(--u) * 4); height: calc(var(--u) * 4); }
+.ws-object { display: flex; align-items: flex-end; padding-bottom: calc(var(--u) * 0.2); }
+
+/* Band-1 counting prompt card and the two sorted groups (step 9 sub-build A). */
+.b1-card {
+  flex: 0 1 auto; max-width: 100%; overflow-wrap: anywhere; padding: calc(var(--u) * 0.6) calc(var(--u) * 1.2); text-align: center;
+  background: var(--paper); border: 2px solid var(--edge); border-radius: var(--r-lg); box-shadow: var(--shadow-1);
+  color: var(--ink); font-weight: var(--fw-strong); line-height: 1.2;
+}
+.b1-line { font-size: max(28px, calc(var(--u) * 2.6)); }
+.b1-line + .b1-line { margin-top: calc(var(--u) * 0.4); font-size: max(28px, calc(var(--u) * 3.2)); }
+.b1-sort { align-items: flex-end; gap: calc(var(--u) * 2); }
+.b1-group { display: flex; align-items: flex-end; }
+
+/* Subitizing: a dot pattern or a dice face that stays on the card (step 9 sub-build B). No animation at
+   all, so the pattern never flashes and there is no timer (CLAUDE.md rule 3). The dots are a deep tone on
+   paper (teal-deep on paper is 5.13:1, STYLE 4.1), so colour is not the only cue: the shape of the group is. */
+.b1-pattern { align-items: center; justify-content: center; }
+.b1-dotcard {
+  flex: none; width: calc(var(--u) * 7); height: calc(var(--u) * 7); padding: calc(var(--u) * 0.6);
+  display: flex; align-items: center; justify-content: center;
+  background: var(--paper); border: 2px solid var(--edge); border-radius: var(--r-lg); box-shadow: var(--shadow-1);
+}
+.b1-dice { display: flex; width: 100%; height: 100%; border: 2px solid var(--edge); border-radius: var(--r-md); padding: calc(var(--u) * 0.3); }
+.b1-dotcard svg { width: 100%; height: 100%; display: block; }
+.pdot { fill: var(--teal-deep); }
+
+/* Ten-frame and number bond cards that stay on the card (step 9 sub-build C). No animation, so neither ever
+   flashes and there is no timer (CLAUDE.md rule 3). Boxes, rings and links are stroke-only in a deep tone
+   (teal-deep on paper is 5.13:1, above the 3:1 non-text minimum, STYLE 4.1); numerals are ink (STYLE 4). */
+.b1-frame {
+  flex: none; width: calc(var(--u) * 11); max-width: 90%; padding: calc(var(--u) * 0.6);
+  background: var(--paper); border: 2px solid var(--edge); border-radius: var(--r-lg); box-shadow: var(--shadow-1);
+}
+.b1-bond {
+  flex: none; width: calc(var(--u) * 7); padding: calc(var(--u) * 0.6);
+  background: var(--paper); border: 2px solid var(--edge); border-radius: var(--r-lg); box-shadow: var(--shadow-1);
+}
+.b1-frame svg, .b1-bond svg { width: 100%; height: auto; display: block; }
+.tf-box { fill: none; stroke: var(--teal-deep); stroke-width: 1.6; }
+.nb-ring { fill: none; stroke: var(--teal-deep); stroke-width: 2; }
+.nb-link { stroke: var(--teal-deep); stroke-width: 2; }
+.nb-num { fill: var(--ink); font-weight: var(--fw-strong); font-size: 18px; text-anchor: middle; dominant-baseline: central; }
+.nb-q { fill: var(--ink-soft); font-weight: var(--fw-strong); font-size: 18px; text-anchor: middle; dominant-baseline: central; }
+
+/* Read-the-line (step 9 sub-build D): the 0 to 10 line reuses the number-line look; a soft flag sits above
+   the marked tile, which shows "?" (the marked tile keeps the dashed go-deep border through nl-land). The
+   flag is placed by the tile index (--cell) at the 2.2u tile pitch, so it stands over the right tile.
+   No animation, so the line never flashes and there is no timer (CLAUDE.md rule 3). */
+.b1-flagrow { position: relative; height: calc(var(--u) * 2); }
+.b1-flagcell {
+  position: absolute; width: calc(var(--u) * 2);
+  display: flex; align-items: flex-end; justify-content: center; height: 100%;
+}
+.b1-flag { width: max(30px, calc(var(--u) * 1.6)); height: calc(var(--u) * 2); }
+.b1-flagpole { stroke: var(--sand-deep); stroke-width: 2; stroke-linecap: round; }
+.b1-flagcloth { fill: var(--go); stroke: none; }
+
+/* Even/odd (step 9 sub-build D): the number shown as pairs, two counters stacked per column, with any lone
+   counter set a little apart so "one left over" is read by position, not colour (STYLE 2.4). No animation. */
+.b1-pairs { align-items: flex-end; justify-content: center; gap: calc(var(--u) * 0.4); flex-wrap: wrap; }
+.b1-pair { display: flex; flex-direction: column; gap: calc(var(--u) * 0.2); }
+.b1-pair.b1-lone { margin-left: calc(var(--u) * 0.8); }
+
+/* Teen numbers (step 9 sub-build E): a FULL ten-frame (the ten) beside some loose counters (the ones), so
+   "a ten and some ones" is read from the picture. The full frame reuses the ten-frame card; the loose ones
+   sit in a row a little apart, so the ten and the ones are two clear groups. No animation (CLAUDE.md rule 3). */
+.b1-teen { align-items: center; justify-content: center; gap: calc(var(--u) * 1); flex-wrap: wrap; }
+.b1-teen .b1-frame { flex: none; width: calc(var(--u) * 11); }
+.b1-ones { display: flex; align-items: flex-end; gap: calc(var(--u) * 0.2); flex-wrap: wrap; max-width: calc(var(--u) * 7); }
+
+/* Fractions (step 9 sub-build F): a shape split into equal parts (one wedge shaded) beside the group dealt
+   into equal plates. The circle outline and dividing lines are stroke-only in a deep tone (teal-deep on paper
+   is 5.13:1, above the 3:1 non-text minimum, STYLE 4.1); the one shaded wedge is a filled deep tone like the
+   counters, and it also differs by position, so colour is not the only cue (STYLE 2.4). The plates are
+   stroke-only wells (edge border), each holding one share of the counters. No animation (CLAUDE.md rule 3). */
+.b1-frac { align-items: center; justify-content: center; gap: calc(var(--u) * 1.2); flex-wrap: wrap; }
+.frac-shape {
+  flex: none; width: calc(var(--u) * 5); height: calc(var(--u) * 5);
+  background: var(--paper); border: 2px solid var(--edge); border-radius: var(--r-lg); box-shadow: var(--shadow-1);
+  padding: calc(var(--u) * 0.4);
+}
+.frac-shape svg { width: 100%; height: 100%; display: block; }
+.frac-line { stroke: var(--teal-deep); stroke-width: 2; fill: none; }
+.frac-part { fill: var(--teal-deep); stroke: none; }
+.frac-plates { display: flex; align-items: center; gap: calc(var(--u) * 0.5); flex-wrap: wrap; }
+.frac-plate {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: calc(var(--u) * 0.2); padding: calc(var(--u) * 0.3);
+  min-width: calc(var(--u) * 2.2); max-width: calc(var(--u) * 2.8);
+  border: 2px solid var(--edge); border-radius: var(--r-md); background: var(--sunk);
+}

@@ -1,0 +1,8 @@
+/* The bundled Nunito font (docs/STYLE.md section 14; SIL Open Font License 1.1, see ../assets/fonts/OFL.txt). */
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 200 1000;
+  font-display: swap;
+  src: url('../assets/fonts/nunito-latin-wght-normal.woff2') format('woff2');
+}

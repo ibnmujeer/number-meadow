@@ -1,0 +1,316 @@
+/* Number Meadow band 3 (ages 10 to 12) styles. Step 11. Existing tokens only (tokens.css); no new colour, token or sound.
+   Section 1 (this file, Foundation): the calm, grown-up look, switched on by the class look-grown on #app. The class is set by
+   child/look-ui.js from the pure core/look.js: on Home, the buddy picker and Free Play when the child's stored age band is
+   10 to 12 or stored age is 10 or more, and on a mission screen whenever the activity's concept is band 3. A child without a
+   stored age or band, or younger than 10, never gets the class, so every rule below is scoped to #app.look-grown.
+   Section 2 (sub-builds A to F): the new pictures (area model, hundred grid, signed line, thousands chart, bars). */
+
+/* ---- 1. The calm, grown-up look ---- */
+/* The page grain lives on body; #app covers the whole window, so a flat --bg fill here removes the grain for these screens only. */
+#app.look-grown { background-color: var(--bg); }
+/* Tighter spacing between the parts of a screen. No target gets smaller: .bar, .choice, tiles and cards keep their own min sizes. */
+#app.look-grown .screen { gap: 0.25rem; padding-top: 0.25rem; padding-bottom: 0.25rem; }
+#app.look-grown .map { gap: 0.6rem; }
+#app.look-grown .buddy-grid { gap: var(--sp-1); }
+#app.look-grown .fp-grid { gap: 0.3rem; }
+/* A smaller buddy, never below 40 px (STYLE 8). */
+#app.look-grown .home-buddy { width: max(40px, 2.6rem); height: max(40px, 2.6rem); }
+#app.look-grown #mission-buddy { width: max(40px, 2.5rem); height: max(40px, 2.5rem); }
+#app.look-grown .card-face { width: max(40px, min(3.6rem, 9.5vh)); height: max(40px, min(3.6rem, 9.5vh)); }
+/* Calmer headings: a little smaller and one weight lighter (700, the Nunito font is variable), same ink. */
+#app.look-grown .home-title { font-size: 1.5rem; font-weight: 700; }
+#app.look-grown .hello { font-size: 1.2rem; font-weight: 700; }
+#app.look-grown .screen-title { font-size: 1.4rem; font-weight: 700; }
+#app.look-grown .tile-name, #app.look-grown .fp-tile-name { font-weight: 700; }
+#app.look-grown .fp-note, #app.look-grown .home-note { font-weight: 700; }
+/* The question text keeps its size (the layout rule: at least 28 px); only its weight is calmer. */
+#app.look-grown #q-text { font-weight: 700; }
+#app.look-grown .world-tile, #app.look-grown .fp-tile { box-shadow: var(--shadow-1); }
+/* ---- 2. Band 3 pictures ---- */
+/* Sub-build A (big numbers and facts). Flat shapes, token colours only, no gradient, no animation (STYLE 6, 7.1). */
+
+/* The place value chart in groups of three columns (ones, thousands, millions) with a comma between the groups. */
+.b3-chart { display: flex; align-items: flex-start; justify-content: center; gap: calc(var(--u) * 0.3); }
+.b3-group { display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * 0.3); }
+.b3-cols { display: flex; gap: calc(var(--u) * 0.2); }
+.b3-col { min-width: max(34px, calc(var(--u) * 2.4)); }
+.b3-col .b2-cdigit { font-size: max(24px, calc(var(--u) * 2.4)); }
+.b3-pick { border-color: var(--ink); background: var(--paper); }
+.b3-gname { font-size: max(14px, calc(var(--u) * 1)); font-weight: var(--fw-strong); color: var(--ink-soft); }
+.b3-comma { align-self: center; font-size: max(24px, calc(var(--u) * 2.4)); font-weight: var(--fw-strong); color: var(--ink-soft); }
+
+/* The column sum card: signs on the left, numbers right-aligned, a rule, then the open answer row. */
+.b3-sum {
+  display: grid; grid-template-columns: auto auto; justify-content: center; align-items: center;
+  column-gap: calc(var(--u) * 0.8); row-gap: calc(var(--u) * 0.3); padding: calc(var(--u) * 0.8) calc(var(--u) * 1.2);
+  background: var(--paper); border: 2px solid var(--edge); border-radius: var(--r-lg); box-shadow: var(--shadow-1);
+  color: var(--ink); font-weight: var(--fw-strong); font-variant-numeric: tabular-nums;
+}
+.b3-ssign { min-width: 1ch; text-align: center; font-size: max(24px, calc(var(--u) * 2.2)); color: var(--ink-soft); }
+.b3-snum { justify-self: end; font-size: max(28px, calc(var(--u) * 2.6)); line-height: 1.2; }
+.b3-q { color: var(--ink-soft); }
+.b3-rule { grid-column: 1 / -1; height: 3px; border-radius: var(--r-pill); background: var(--ink); }
+
+/* The bar model of the two stories: the whole bar over its parts, the unknown part dashed. */
+.b3-parts { display: flex; flex-direction: column; gap: calc(var(--u) * 0.5); width: calc(var(--u) * 22); min-width: min(16rem, calc(100vw - 3rem)); max-width: 100%; } /* definite width: the scene shrinks to its content (audit A2 root cause) */
+.b3-bar { display: flex; align-items: stretch; width: 100%; min-height: 2.6rem; height: calc(var(--u) * 3); border: 2px solid var(--edge); border-radius: var(--r-md); overflow: hidden; }
+.b3-seg { display: flex; align-items: center; justify-content: center; flex-basis: auto; flex-shrink: 0; padding: 0 0.4em; border-right: 2px solid var(--edge); background: var(--sunk); }
+.b3-seg:last-child { border-right: none; }
+.b3-wholebar .b3-seg { background: var(--paper); }
+.b3-unknown { min-width: 3.2em; background: var(--paper); outline: 2px dashed var(--edge); outline-offset: -6px; }
+.b3-segnum { white-space: nowrap; font-size: max(16px, calc(var(--u) * 1.4)); font-weight: var(--fw-strong); color: var(--ink); }
+
+/* The array cut after five rows, and the card that holds two numbers. */
+.b3-split { gap: calc(var(--u) * 0.9); }
+.b3-top, .b3-rest { display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * 0.3); }
+.b3-card .b2-line { font-size: max(28px, calc(var(--u) * 2.8)); }
+
+/* The rung 3 note: plain lines of text under the picture. */
+.b3-note { display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * 0.3); text-align: center; }
+.b3-noteline { line-height: 1.2; padding: 0 0.5em; border-radius: var(--r-sm); background: var(--paper); font-size: max(18px, calc(var(--u) * 1.5)); font-weight: var(--fw-strong); color: var(--ink); }
+
+/* Big-number answers: a six-digit label with commas is wider than a third of a phone, and the answer text must stay at the full answer size,
+   so these five activities stack their three buttons one over the other (each full width, still 72 px or more tall). The picture above
+   takes the height that is left. Selected by the screen's data-type, so no script is involved. */
+.screen[data-type="place-big"] .answers, .screen[data-type="add-big"] .answers, .screen[data-type="sub-big"] .answers,
+.screen[data-type="add-big-word"] .answers, .screen[data-type="sub-big-word"] .answers { flex-direction: column; gap: var(--sp-1); }
+.screen[data-type="place-big"] .choice, .screen[data-type="add-big"] .choice, .screen[data-type="sub-big"] .choice,
+.screen[data-type="add-big-word"] .choice, .screen[data-type="sub-big-word"] .choice { flex: none; width: 100%; height: 4.6rem; }
+
+/* The two stories on the shortest phones (height 620 px or less): the story is three short lines and three stacked buttons, so the bar
+   picture gets a short fixed stage and the third button stays on screen. */
+@media (max-height: 620px) and (max-width: 700px) {
+  .screen[data-type="add-big-word"] .stage, .screen[data-type="sub-big-word"] .stage { flex: none; height: 4.6rem; min-height: 0; padding: 0; }
+}
+@media (max-height: 700px) {
+  .screen[data-type="add-big-word"] .b3-bar, .screen[data-type="sub-big-word"] .b3-bar { min-height: 0; height: 1.9rem; }
+  .screen[data-type="add-big-word"] .b3-parts, .screen[data-type="sub-big-word"] .b3-parts { gap: 0.2rem; }
+  .screen[data-type="add-big-word"] .b3-segnum, .screen[data-type="sub-big-word"] .b3-segnum { font-size: 1rem; }
+}
+
+/* ---- 3. Sub-build B pictures (area model, remainder piles, long division) ---- */
+
+/* The area model: a rectangle whose width is split into tens and ones. Each cell is a flat box labelled with its size and value.
+   Flex-grow makes the cells wider for a bigger factor; the token colours only, no gradient (STYLE 7.1). */
+.b3-area { display: flex; flex-direction: column; align-items: stretch; width: calc(var(--u) * 16); max-width: 100%; gap: calc(var(--u) * 0.3); }
+.b3-xlabels { display: flex; justify-content: space-around; font-size: max(16px, calc(var(--u) * 1.4)); font-weight: var(--fw-strong); color: var(--ink-soft); }
+.b3-arows { display: flex; flex-direction: column; gap: calc(var(--u) * 0.3); }
+.b3-arow { display: flex; gap: calc(var(--u) * 0.3); }
+.b3-cell { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-basis: 0; min-height: calc(var(--u) * 1.5); padding: calc(var(--u) * 0.25); border: 2px solid var(--edge); border-radius: var(--r-md); background: var(--sunk); }
+.b3-cellsize { font-size: max(14px, calc(var(--u) * 1)); color: var(--ink-soft); }
+.b3-cellval { font-size: max(18px, calc(var(--u) * 1.6)); font-weight: var(--fw-strong); color: var(--ink); }
+
+/* The remainder piles: equal plates of counters, the leftover plate (b3-leftpile) in its own tone and a dashed outline so the
+   "left over" reads with no colour cue. Reuses the band-2 plate layout. */
+.b3-piles { display: flex; flex-wrap: wrap; justify-content: center; gap: calc(var(--u) * 0.6); max-width: calc(var(--u) * 22); }
+.b3-piles .b2-plate { margin: 0; }
+.b3-leftpile { outline: 2px dashed var(--edge); outline-offset: 2px; }
+
+/* The division sum on a plain card. The number keeps the full answer size; tabular numerals keep the digits tidy. */
+.b3-divcard { display: flex; align-items: center; justify-content: center; padding: calc(var(--u) * 0.9) calc(var(--u) * 1.3); background: var(--paper); border: 2px solid var(--edge); border-radius: var(--r-lg); box-shadow: var(--shadow-1); }
+.b3-divline { font-size: max(28px, calc(var(--u) * 2.8)); font-weight: var(--fw-strong); color: var(--ink); font-variant-numeric: tabular-nums; }
+
+/* The two division sums and the area products can show a wide answer label (hundreds or thousands with a comma), so these stack
+   their three buttons one over the other, each full width, still 72 px or more tall. Selected by the screen's data-type. */
+.screen[data-type="div-multi"] .answers, .screen[data-type="div-long"] .answers,
+.screen[data-type="mul-area1"] .answers, .screen[data-type="mul-area2"] .answers { flex-direction: column; gap: var(--sp-1); }
+.screen[data-type="div-multi"] .choice, .screen[data-type="div-long"] .choice,
+.screen[data-type="mul-area1"] .choice, .screen[data-type="mul-area2"] .choice { flex: none; width: 100%; height: 4.6rem; }
+
+/* The two division stories on the shortest phones: a short fixed stage so the third stacked button stays on screen. */
+@media (max-height: 620px) and (max-width: 700px) {
+  .screen[data-type="div-multi-word"] .stage, .screen[data-type="div-long-word"] .stage { flex: none; height: 4.6rem; min-height: 0; padding: 0; }
+}
+@media (max-height: 700px) {
+  .screen[data-type="div-multi-word"] .b3-bar, .screen[data-type="div-long-word"] .b3-bar { min-height: 0; height: 1.9rem; }
+  .screen[data-type="div-multi-word"] .b3-segnum, .screen[data-type="div-long-word"] .b3-segnum { font-size: 1rem; }
+}
+
+/* The area model is a tall picture; when a rung-3 note is stacked under it (the stage gets the hint-col class), centre the picture and
+   the note in the stage rather than bottom-aligning them, so a tall model never pushes its top cells above the stage. The question
+   screen (no note) keeps the shared bottom alignment. */
+.screen[data-type="mul-area1"] .stage.hint-col, .screen[data-type="mul-area2"] .stage.hint-col { justify-content: center; }
+
+/* ---- 4. Sub-build C pictures (fractions) ---- */
+
+/* The fraction pictures reuse the band-2 fraction bar (b2-fbar / b2-fseg / b2-fon) in the band-2 wall column (b2-fstack / b2-fwall),
+   drawn in the same scene wrapper as the band-2 fractions, so the bars fill the width exactly as they do in band 2. Token colours
+   only, no gradient (STYLE 7.1). A second shaded tone marks the second amount of an add on one bar (frac-addsame / frac-addunlike). */
+.b2-fseg.b3-fon2 { background: var(--sand); }
+
+/* These wall rows have no word label (band 2 wall rows reserve a left label column that gives the wall its width), so give the wall
+   a definite width in --u units; the bars inside then fill it instead of collapsing to nothing. The stage scales --u to fit. */
+.b3-fwall { display: flex; flex-direction: column; align-items: stretch; gap: calc(var(--u) * 0.5); width: calc(var(--u) * 22); max-width: 100%; }
+.b3-fwall .b2-fbar { width: 100%; max-width: none; }
+
+/* frac-of: the bar over a row of counters, so a fraction OF an amount reads as one picture. */
+.b3-ofwrap { display: flex; flex-direction: column; align-items: stretch; gap: calc(var(--u) * 0.6); width: 100%; max-width: calc(var(--u) * 24); }
+.b3-ofcount { display: flex; flex-wrap: wrap; justify-content: center; gap: calc(var(--u) * 0.3); }
+
+/* frac-mul whole x fraction: a row of w small bars, each split and shaded. */
+.b3-mulrow { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: calc(var(--u) * 0.5); max-width: calc(var(--u) * 24); }
+.b3-mulbar { width: calc(var(--u) * 5); }
+
+/* frac-mul fraction of a fraction: a unit square cut into b1 columns and b2 rows, the overlap (b3-oon) shaded. A flat grid of
+   equal cells; the shaded overlap uses the same moss shade as a shaded bar part, with a border so the grid lines read. */
+.b3-overlap { display: flex; flex-direction: column; width: calc(var(--u) * 11); height: calc(var(--u) * 11); border: 2px solid var(--edge); border-radius: var(--r-sm); overflow: hidden; }
+.b3-orow { display: flex; flex: 1 1 0; }
+.b3-ocell { flex: 1 1 0; border-right: 1px solid var(--edge); border-bottom: 1px solid var(--edge); background: var(--paper); }
+.b3-ocell:last-child { border-right: none; }
+.b3-orow:last-child .b3-ocell { border-bottom: none; }
+.b3-ocell.b3-oon { background: var(--moss); }
+
+/* A fraction answer label can be an improper fraction ("10/8", "18/4"), wider than a third of a 360 px phone at the full answer
+   size, so the activities whose answers are fraction codes (frac-addsame, frac-addunlike, frac-mul, and frac-equiv's simplest-form
+   mode) stack their three buttons one over the other, each full width, still 72 px or more tall. frac-equiv's whole-number fill and
+   its two-button compare are narrow, so they keep the shared side-by-side row. Selected by the screen's data-type, so no script. */
+.screen[data-type="frac-addsame"] .answers, .screen[data-type="frac-addunlike"] .answers, .screen[data-type="frac-mul"] .answers,
+.screen[data-type="frac-equiv"] .answers { flex-direction: column; gap: var(--sp-1); }
+.screen[data-type="frac-addsame"] .choice, .screen[data-type="frac-addunlike"] .choice, .screen[data-type="frac-mul"] .choice,
+.screen[data-type="frac-equiv"] .choice { flex: none; width: 100%; height: 4.6rem; }
+/* frac-mul fraction-of-a-fraction is a tall square; centre it (and any rung-3 note) in the stage like the area model. */
+.screen[data-type="frac-mul"] .stage.hint-col { justify-content: center; }
+
+/* On the shortest phones (height 620 px or less), three stacked full-width answer buttons plus a tall fraction picture would push
+   the third button off the bottom, so the picture takes a short fixed stage and the fraction bars shrink to fit. The question line
+   and the buttons keep their full size. Selected by the screen's data-type, so no script is involved. */
+@media (max-height: 620px) and (max-width: 700px) {
+  .screen[data-type="frac-equiv"] .stage, .screen[data-type="frac-addsame"] .stage,
+  .screen[data-type="frac-addunlike"] .stage, .screen[data-type="frac-mul"] .stage { flex: none; height: 6rem; min-height: 0; padding: 0; }
+  .screen[data-type="frac-equiv"] .stage { height: 5rem; }
+  .screen[data-type="frac-addunlike"] .stage { height: 7rem; }
+  .screen[data-type="frac-equiv"] .b3-fwall, .screen[data-type="frac-addunlike"] .b3-fwall { gap: calc(var(--u) * 0.3); }
+  .screen[data-type="frac-equiv"] .b2-fbar, .screen[data-type="frac-addsame"] .b2-fbar,
+  .screen[data-type="frac-addunlike"] .b2-fbar { height: 1.3rem; }
+  .screen[data-type="frac-mul"] .b3-overlap { width: calc(var(--u) * 7); height: calc(var(--u) * 7); }
+  .screen[data-type="frac-mul"] .b3-mulbar { width: calc(var(--u) * 4); }
+}
+
+/* ---- 5. Sub-build D pictures (decimals) ---- */
+
+/* The hundred grid: ten rows of ten flat squares (the NEW hundred-grid way of showing, D11-1). The fit spec is 14 x 14 units, so
+   the grid is a 14-unit square; the ten cells per row flex to fill it. A shaded cell (b3-gon) uses the same moss shade as a shaded
+   bar part; token colours only, no gradient (STYLE 7.1). The thin edges let each tenth (a full column of ten) and each hundredth
+   (a single square) read with no colour cue, so the picture carries the task when sound is off. */
+.b3-grid { display: flex; flex-direction: column; width: calc(var(--u) * 14); height: calc(var(--u) * 14); max-width: 100%; border: 2px solid var(--edge); border-radius: var(--r-sm); overflow: hidden; background: var(--paper); }
+.b3-grow { display: flex; flex: 1 1 0; }
+.b3-gcell { flex: 1 1 0; border-right: 1px solid var(--edge); border-bottom: 1px solid var(--edge); }
+.b3-gcell:last-child { border-right: none; }
+.b3-grow:last-child .b3-gcell { border-bottom: none; }
+.b3-gcell.b3-gon { background: var(--moss); }
+
+/* The decimal number line: a flat track with a tick and a label above each marked decimal, so a bigger decimal sits further right.
+   The fit spec is 26 x 5 units. The labels never wrap (tabular numerals keep the point tidy). */
+.b3-dline { position: relative; width: calc(var(--u) * 26); max-width: 100%; height: calc(var(--u) * 6); }
+.b3-dtrack { position: absolute; left: 0; right: 0; top: calc(var(--u) * 3.4); height: 4px; border-radius: var(--r-pill); background: var(--ink); }
+.b3-dtick { position: absolute; top: calc(var(--u) * 2.4); width: 3px; height: calc(var(--u) * 2); transform: translateX(-50%); background: var(--ink); }
+.b3-dlabel { position: absolute; bottom: calc(var(--u) * 2.9); left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: max(16px, calc(var(--u) * 1.4)); font-weight: var(--fw-strong); color: var(--ink); font-variant-numeric: tabular-nums; }
+/* A near neighbour's label sits below the track instead, so two close decimals never run their labels together. */
+.b3-dlabel.b3-dlow { bottom: auto; top: calc(var(--u) * 2.9); }
+
+/* A short story card for the ribbon and pens word problems: the key figures as plain lines on a card (the display text states the
+   full story). Reuses the division card's paper box so the look matches the other symbolic cards. */
+.b3-storycard { display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * 0.3); padding: calc(var(--u) * 0.9) calc(var(--u) * 1.3); background: var(--paper); border: 2px solid var(--edge); border-radius: var(--r-lg); box-shadow: var(--shadow-1); }
+.b3-storyline { white-space: nowrap; font-size: max(18px, calc(var(--u) * 1.8)); font-weight: var(--fw-strong); color: var(--ink); font-variant-numeric: tabular-nums; }
+
+/* The decimal activities whose answer buttons can be a coded decimal ("0.05", "6.25", "0.66") show a label wider than a third of a
+   360 px phone at the full answer size, so these stack their buttons one over the other, each full width, still 72 px or more tall:
+   dec-tenths (modes 0 and 1 are coded), dec-hundredths (all coded), dec-compare (the "which is smallest" mode is coded, and the
+   two-button "which is bigger" row reads just as well stacked), and the sums dec-addsub / dec-muldiv and their word problems. The
+   whole-number fill modes keep a short label inside a full-width button. Selected by the screen's data-type, so no script. */
+.screen[data-type="dec-tenths"] .answers, .screen[data-type="dec-hundredths"] .answers, .screen[data-type="dec-compare"] .answers,
+.screen[data-type="dec-addsub"] .answers, .screen[data-type="dec-muldiv"] .answers,
+.screen[data-type="dec-addsub-word"] .answers, .screen[data-type="dec-muldiv-word"] .answers { flex-direction: column; gap: var(--sp-1); }
+.screen[data-type="dec-tenths"] .choice, .screen[data-type="dec-hundredths"] .choice, .screen[data-type="dec-compare"] .choice,
+.screen[data-type="dec-addsub"] .choice, .screen[data-type="dec-muldiv"] .choice,
+.screen[data-type="dec-addsub-word"] .choice, .screen[data-type="dec-muldiv-word"] .choice { flex: none; width: 100%; height: 4.6rem; }
+
+/* On the shortest phones (height 620 px or less), the tall hundred grid plus three stacked buttons would push the picture off the
+   top, so the grid activities take a short fixed stage. Selected by the screen's data-type, so no script is involved. */
+@media (max-height: 620px) and (max-width: 700px) {
+  .screen[data-type="dec-tenths"] .stage, .screen[data-type="dec-hundredths"] .stage { flex: none; height: 7rem; min-height: 0; padding: 0; }
+  .screen[data-type="dec-tenths"] .b3-grid, .screen[data-type="dec-hundredths"] .b3-grid { width: calc(var(--u) * 10); height: calc(var(--u) * 10); }
+}
+/* The two decimal stories can word a long question (five lines on a 320 px phone) over three stacked 72 px buttons. On a phone 700 px tall or
+   less the story card is a compact two-line chip on a short stage (as the percent story is) and the answer row has no spare bottom padding,
+   so the third button stays on the screen, also with a hint showing. The display question states the whole story (audit A3). */
+@media (max-height: 620px) and (max-width: 700px) {
+  .screen[data-type="dec-addsub-word"] .stage, .screen[data-type="dec-muldiv-word"] .stage { flex: none; height: 3.6rem; min-height: 0; padding: 0; }
+}
+@media (max-height: 700px) {
+  .screen[data-type="dec-addsub-word"] .b3-storycard, .screen[data-type="dec-muldiv-word"] .b3-storycard { gap: 0; padding: 0.1rem 0.5rem; }
+  .screen[data-type="dec-addsub-word"] .b3-storyline, .screen[data-type="dec-muldiv-word"] .b3-storyline { font-size: max(15px, calc(var(--u) * 1.3)); }
+  .screen[data-type="dec-addsub-word"] .answers, .screen[data-type="dec-muldiv-word"] .answers { gap: 0.2rem; padding-bottom: 0; }
+}
+
+/* ---- 6. Sub-build E pictures (percents) ---- */
+
+/* The percent bar reuses the band-2 fraction bar (b2-fbar), a bar of 20 equal parts (each 5%), with a "P%" label above it so the
+   amount reads with sound off. pct-meaning and pct-link reuse the sub-build D hundred grid (b3-grid), so they need no new rule. */
+.b3-pctbar { display: flex; flex-direction: column; align-items: stretch; gap: calc(var(--u) * 0.6); width: calc(var(--u) * 22); max-width: 100%; }
+.b3-pctlabel { align-self: center; font-size: max(20px, calc(var(--u) * 2)); font-weight: var(--fw-strong); color: var(--ink); font-variant-numeric: tabular-nums; }
+.b3-pctbar .b2-fbar { width: 100%; max-width: none; min-height: calc(var(--u) * 2.6); }
+
+/* pct-link can answer with a decimal ("0.75") or a simplest fraction ("9/20"), wider than a third of a 360 px phone at the full
+   answer size, so it stacks its three buttons one over the other, each full width, still 72 px or more tall. pct-bench answers with
+   a short two-digit whole number, so it keeps the shared side-by-side row (pct-of and pct-meaning stack, see below). Selected by
+   data-type, so no script. */
+.screen[data-type="pct-link"] .answers { flex-direction: column; gap: var(--sp-1); }
+.screen[data-type="pct-link"] .choice { flex: none; width: 100%; height: 4.6rem; }
+
+/* The percent-of-an-amount answers can be three digits (320, 105, 100). Three of these across the row at the full answer size
+   (never below the 50 px readability floor) overflow their third of a 320 px phone and the digits clip. So pct-of, pct-of-word and
+   pct-meaning (which can answer 100) STACK their three buttons one over the other, each full width, still 72 px or more tall, the
+   same pattern the big-number, decimal and fraction answers use. pct-bench (up to 75) and pct-meaning (up to 80, two digits with
+   the data's own numbers) answer with a two-digit number, so they keep the side-by-side row. Measured and proved by
+   verify_layout.py at 320x568. Selected by the screen's data-type, so no script. */
+.screen[data-type="pct-of"] .answers, .screen[data-type="pct-of-word"] .answers { flex-direction: column; gap: var(--sp-1); }
+.screen[data-type="pct-of"] .choice, .screen[data-type="pct-of-word"] .choice { flex: none; width: 100%; height: 4.6rem; }
+
+/* On a shorter phone the tall hundred grid or the card, plus three STACKED answer buttons and (after a wrong try) the hint note,
+   would push the third button off the bottom, so these activities take a short fixed stage that leaves room for the stacked
+   answers. The breakpoint is 700 px tall because pct-of, pct-of-word and pct-meaning now stack (three full-width buttons), which
+   needs more height than the old side-by-side row; a 360x640 or 375x667 phone with the hint showing must still fit. The stage is
+   2.6 rem because the shortest guarded phone (360x580) also runs the hint-shown case: there the pct-of-word story question wraps to
+   about four lines, so the question text alone takes about 132 px; a taller stage pushed the third stacked button off the bottom
+   (measured at 360x580 by verify_layout.py). The story card is only a prompt (the display question states the whole story), so a
+   short stage is enough. pct-link keeps its 620 px grid rule (its buttons already stacked before). Selected by data-type, no script. */
+@media (max-height: 620px) and (max-width: 700px) {
+  .screen[data-type="pct-of"] .stage, .screen[data-type="pct-of-word"] .stage { flex: none; height: 4.4rem; min-height: 0; padding: 0; }
+  .screen[data-type="pct-of-word"] .stage { height: 3.4rem; }
+}
+@media (max-height: 700px) {
+  /* The three stacked answers keep their full 4.6 rem height (never under 72 px, audit A1) with a tight gap, so the card, the question, the three buttons and
+     (after a wrong try) the hint note all stay on a 360x580 screen. */
+  .screen[data-type="pct-of"] .answers, .screen[data-type="pct-of-word"] .answers { gap: 0.2rem; }
+  .screen[data-type="pct-of-word"] .b3-storycard { gap: 0; padding: 0.1rem 0.5rem; }
+  .screen[data-type="pct-of-word"] .b3-storyline { font-size: max(15px, calc(var(--u) * 1.3)); }
+  /* The rung-3 answer note stays a tight one line here (the stage keeps it clipped), so it never pushes the stacked buttons off a
+     360x580 screen; the display question already states the whole story and the picture is only a prompt. */
+  .screen[data-type="pct-of"] .stage, .screen[data-type="pct-of-word"] .stage { overflow: hidden; }
+  .screen[data-type="pct-of"] .b3-note, .screen[data-type="pct-of-word"] .b3-note { padding: 0; }
+  .screen[data-type="pct-of"] .b3-noteline, .screen[data-type="pct-of-word"] .b3-noteline { font-size: max(15px, calc(var(--u) * 1.3)); padding: 0 0.3em; }
+}
+@media (max-height: 620px) and (max-width: 700px) {
+  .screen[data-type="pct-meaning"] .stage, .screen[data-type="pct-link"] .stage { flex: none; height: 7rem; min-height: 0; padding: 0; }
+  .screen[data-type="pct-meaning"] .b3-grid, .screen[data-type="pct-link"] .b3-grid { width: calc(var(--u) * 10); height: calc(var(--u) * 10); }
+}
+
+/* ---- 7. Sub-build F pictures (negatives, order of operations, letters) ---- */
+
+/* The signed horizontal number line: a flat track through zero with a tick and a label below each whole number, the start value
+   marked with a bolder tick, so a move left (take away) or right (add) across zero reads directly. The fit spec grows with the
+   span. The numbers never wrap; tabular numerals keep the escaped minus tidy. Colour is token-only (STYLE 7.1). */
+.b3-nline { position: relative; display: flex; align-items: flex-start; justify-content: space-between; width: calc(var(--u) * 24); max-width: 100%; min-height: calc(var(--u) * 6); padding-top: calc(var(--u) * 2.2); }
+.b3-nltrack { position: absolute; left: 0; right: 0; top: calc(var(--u) * 2.2); height: 4px; border-radius: var(--r-pill); background: var(--ink); }
+.b3-nltick { position: relative; display: flex; flex-direction: column; align-items: center; flex: 1 1 0; min-width: 0; }
+.b3-nlmark { width: 3px; height: calc(var(--u) * 1.4); background: var(--ink); }
+.b3-nlnum { margin-top: calc(var(--u) * 0.4); font-size: max(16px, calc(var(--u) * 1.5)); font-weight: var(--fw-strong); color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* Zero carries a longer tick so "through zero" reads at a glance; the start value's tick is bolder (never the answer). */
+.b3-nltick.b3-nlzero .b3-nlmark { height: calc(var(--u) * 2.2); width: 4px; }
+.b3-nltick.b3-nlstart .b3-nlmark { width: 6px; background: var(--go-deep); }
+.b3-nltick.b3-nlstart .b3-nlnum { color: var(--go-deep); }
+
+/* The order-of-operations and letter sums reuse the division card (b3-divcard / b3-divline). Their answers are short whole numbers
+   or a signed number, so they keep the shared side-by-side answer row; the two-button compare rows (neg-compare colder, the L4
+   ops-brackets compare) read just as well side by side. No stacking rule is needed for sub-build F. */

@@ -1,0 +1,61 @@
+/* Number Meadow controls (art spec 4): buttons and their role variants, cards, banners, badges, the
+   header bar. Flat fills, 2 px borders, soft blurred shadows, no black outline. */
+button {
+  font: inherit; font-weight: var(--fw-strong); color: var(--ink);
+  min-width: max(var(--tap-min), 4rem); min-height: max(var(--tap-min), 4rem);
+  margin: 0; padding: 0.25rem 0.75rem;
+  border: 2px solid var(--edge); border-radius: var(--r-md);
+  background: var(--paper);
+  box-shadow: var(--shadow-1);
+  cursor: pointer; touch-action: manipulation;
+  position: relative;
+  -webkit-appearance: none; appearance: none;
+}
+/* D5: every interactive element is at least 64 CSS px (--tap-min) both ways. */
+[data-action], .tower, summary { min-width: max(var(--tap-min), 4rem); min-height: max(var(--tap-min), 4rem); }
+button:active:not(:disabled) { transform: translateY(2px); box-shadow: none; }
+button:disabled { cursor: default; }
+button svg { display: block; pointer-events: none; }
+.icon-btn {
+  width: max(var(--tap-min), 4rem); height: max(var(--tap-min), 4rem); padding: 0; flex: none;
+  display: inline-flex; align-items: center; justify-content: center; border-radius: var(--r-pill);
+}
+.icon-btn svg { width: 2.3rem; height: 2.3rem; }
+/* Step 8: the placement "All done" stop button shows its label beside the tick (still at least 64 px). */
+.icon-btn.place-stop { width: auto; gap: var(--sp-2); padding: 0 var(--sp-3); }
+.place-stop-text { font-size: var(--fs-m); line-height: var(--lh-tight); }
+.face { display: block; flex: none; }
+.face svg { display: block; width: 100%; height: 100%; }
+
+.big-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2);
+  min-height: 4.2rem; padding: 0.4rem 1.4rem;
+  font-size: var(--fs-l); line-height: var(--lh-tight);
+}
+.big-btn svg { width: 2rem; height: 2rem; flex: none; }
+.btn-go { background: var(--go); border-color: var(--go-deep); color: var(--ink); }
+.btn-warm { background: var(--warm); border-color: var(--warm-deep); color: var(--ink); }
+.btn-quiet { background: var(--paper); border-color: var(--edge); color: var(--ink); }
+
+.bar { display: flex; align-items: center; gap: 0.375rem; min-height: 4.2rem; }
+.screen-title { flex: 1; min-width: 0; font-size: var(--fs-l); font-weight: var(--fw-strong); line-height: var(--lh-tight); text-align: center; }
+.card { background: var(--paper); border: 2px solid var(--edge); border-radius: var(--r-lg); box-shadow: var(--shadow-1); }
+.banner {
+  position: relative; display: flex; align-items: center; gap: var(--sp-2); max-width: 100%;
+  padding: 0.3rem 0.8rem; background: var(--paper); color: var(--ink);
+  border: 2px solid var(--edge); border-radius: var(--r-md); box-shadow: var(--shadow-1);
+}
+.badge {
+  position: absolute; top: -0.75rem; right: var(--sp-2); padding: 0 0.4rem; font-size: 0.95rem;
+  background: var(--pick); color: var(--ink); border: 2px solid var(--pick-deep); border-radius: var(--r-sm);
+}
+/* The title screen's sound toggle sits in a row of its own at the bottom (no overlap with Play). */
+.title-foot { align-self: stretch; display: flex; justify-content: flex-end; }
+
+/* The tick badge on a chosen card: a --paper disc, an --ink tick, a --pick-deep ring (STYLE 4.2). */
+.tick-badge {
+  position: absolute; top: -0.4rem; right: -0.4rem; width: 1.9rem; height: 1.9rem; padding: 0.15rem;
+  background: var(--paper); color: var(--ink); border: 2px solid var(--pick-deep); border-radius: 50%;
+}
+.tick-badge svg { width: 100%; height: 100%; }
+:not(.chosen) > .tick-badge { display: none; }

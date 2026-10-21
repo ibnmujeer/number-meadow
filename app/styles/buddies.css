@@ -1,0 +1,53 @@
+/* Number Meadow buddies (docs/STYLE.md section 8): the shape rules that colour every buddy SVG,
+   the twelve buddy colour rules, and the buddy picker and players grid. */
+
+/* Shape rules: the buddy strings carry no colour of their own. */
+.bb { fill: var(--bb); }
+.bd { fill: var(--bd); }
+.bi { fill: var(--ink); }
+.ln { fill: none; stroke: var(--bd); stroke-linecap: round; stroke-linejoin: round; }
+.ln.mouth { stroke: var(--ink); }
+
+.buddy-coral { --bb: var(--coral); --bd: var(--coral-deep); }
+.buddy-apricot { --bb: var(--apricot); --bd: var(--apricot-deep); }
+.buddy-sunflower { --bb: var(--sunflower); --bd: var(--sunflower-deep); }
+.buddy-moss { --bb: var(--moss); --bd: var(--moss-deep); }
+.buddy-teal { --bb: var(--teal); --bd: var(--teal-deep); }
+.buddy-sky { --bb: var(--sky); --bd: var(--sky-deep); }
+.buddy-lavender { --bb: var(--lavender); --bd: var(--lavender-deep); }
+.buddy-plum { --bb: var(--plum); --bd: var(--plum-deep); }
+.buddy-rose { --bb: var(--rose); --bd: var(--rose-deep); }
+.buddy-sand { --bb: var(--sand); --bd: var(--sand-deep); }
+.buddy-slateblue { --bb: var(--slateblue); --bd: var(--slateblue-deep); }
+.buddy-mint { --bb: var(--mint); --bd: var(--mint-deep); }
+
+/* Picker and "Who's playing?": 3 columns on phones, 4 from 600 px. */
+.picker-screen .screen-title { padding-right: var(--sp-1); }
+.buddy-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-2); align-content: start; }
+@media (min-width: 600px) { .buddy-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.buddy-card {
+  display: flex; flex-direction: column; align-items: center; gap: 0.1rem;
+  padding: 0.3rem 0.2rem; background: var(--paper);
+}
+.card-face { width: min(4.5rem, 11.5vh); height: min(4.5rem, 11.5vh); }
+.buddy-name { font-size: 1.15rem; line-height: 1.15; }
+.buddy-card.chosen { background: var(--pick); border-color: var(--pick-deep); }
+/* My buddy (step 4, P4): the buddy large, then a row of colours and a row of extras. Each choice reuses the picker card. */
+.mybuddy-screen { align-items: center; gap: var(--sp-2); overflow-y: auto; }
+.mybuddy-big { display: flex; justify-content: center; }
+.mybuddy-face { width: min(8rem, 14vh); height: min(8rem, 14vh); }
+.mybuddy-line { margin: 0; font-size: 1.2rem; font-weight: var(--fw-strong); }
+.look-rows { width: 100%; display: flex; flex-direction: column; gap: var(--sp-1); }
+.look-title { margin: 0.1rem 0 0; font-size: 1rem; font-weight: var(--fw-strong); text-align: center; }
+.look-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--sp-1) var(--sp-2); }
+@media (min-width: 600px) { .look-row { grid-template-columns: repeat(7, minmax(0, 1fr)); } }
+.look-btn { min-width: max(var(--tap-min), 4rem); min-height: max(var(--tap-min), 4rem); }
+.look-btn { padding: 0.15rem 0.1rem; }
+.look-btn .card-face { width: 2.6rem; height: 2.6rem; }
+.look-btn .buddy-name { font-size: 0.85rem; line-height: 1.05; overflow-wrap: anywhere; text-align: center; }
+/* The Home button for this screen: the buddy and two words, in the footer row beside Grown-ups. */
+.mybuddy-btn {
+  display: flex; align-items: center; min-width: 64px; min-height: 64px;
+  font-size: 1.1rem; color: var(--ink); background: var(--paper); border: 2px solid var(--edge); border-radius: var(--r-md);
+}
+.mybuddy-mini { width: 2.2rem; height: 2.2rem; flex: none; }

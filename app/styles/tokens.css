@@ -1,0 +1,81 @@
+:root {
+  /* surfaces and text */
+  --bg: #FBF6EC;            /* page: warm cream */
+  --paper: #FFFDF7;         /* cards, hint box, quiet buttons */
+  --sunk: #F1E9D8;          /* ground, wells, disabled fill */
+  --stage: #EEF1DD;         /* the picture area on the mission screen */
+  --ink: #3B3A36;           /* all text, eyes, icons */
+  --ink-soft: #5E5A50;      /* secondary text */
+  --edge: #8C8473;          /* 2px border of quiet controls (3:1 on cream) */
+  --focus: #1F5F5A;         /* keyboard focus ring */
+
+  /* the twelve buddy colours: base fill, then the deep tone used for graphics on cream */
+  --coral: #F4A38F;     --coral-deep: #B04A36;
+  --apricot: #F7BC85;   --apricot-deep: #9A5A1E;
+  --sunflower: #EFD27A; --sunflower-deep: #85650A;
+  --moss: #A9C48A;      --moss-deep: #4F7036;
+  --teal: #86CCC3;      --teal-deep: #2A7872;
+  --sky: #9CCBEB;       --sky-deep: #33709A;
+  --lavender: #C5B3E6;  --lavender-deep: #6C55A5;
+  --plum: #CC9BC2;      --plum-deep: #86467A;
+  --rose: #F0A9BE;      --rose-deep: #AC4565;
+  --sand: #E3CFA6;      --sand-deep: #7C6838;
+  --slateblue: #A3B1CF; --slateblue-deep: #4B5A86;
+  --mint: #A6E0C4;      --mint-deep: #2E7D5A;
+  /* six more buddy colours, unlocked by growth marks (step 4): base fill, then the deep tone */
+  --blush: #F6C9C0;     --blush-deep: #A14F44;
+  --butter: #F3E3A1;    --butter-deep: #7A6414;
+  --sage: #C5D9B5;      --sage-deep: #52703F;
+  --ice: #BFE0E8;       --ice-deep: #2F6F82;
+  --periwinkle: #C3C9EE; --periwinkle-deep: #4A559B;
+  --orchid: #E3BDE0;    --orchid-deep: #8A4A86;
+
+  /* roles: the interface accents come from teal, moss and apricot only */
+  --go: var(--teal);        --go-deep: var(--teal-deep);
+  --warm: var(--apricot);   --warm-deep: var(--apricot-deep);
+  --ok: var(--moss);        --ok-deep: var(--moss-deep);
+  --pick: var(--sunflower); --pick-deep: var(--sunflower-deep);
+
+  /* shadows and overlays: low-alpha ink, always blurred */
+  --shadow-1: 0 1px 2px rgba(59, 58, 54, 0.10), 0 3px 8px rgba(59, 58, 54, 0.08);
+  --shadow-2: 0 2px 4px rgba(59, 58, 54, 0.10), 0 10px 22px rgba(59, 58, 54, 0.12);
+  --scrim: rgba(59, 58, 54, 0.32);
+  --grain: rgba(59, 58, 54, 0.035);
+
+  /* shape */
+  --r-sm: 0.75rem;
+  --r-md: 1.25rem;
+  --r-lg: 1.75rem;
+  --r-pill: 999px;
+  --tap-min: 64px;
+
+  /* spacing */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+
+  /* type */
+  --font: 'Nunito', ui-rounded, system-ui, sans-serif;
+  --fs-s: 1rem;
+  --fs-m: 1.25rem;
+  --fs-l: 1.6rem;
+  --fs-xl: 2rem;
+  --fs-2xl: 2.75rem;
+  --fs-q: 1.8rem;
+  --fs-choice: 3.3rem;
+  --fw-body: 600;
+  --fw-strong: 800;
+  --lh-tight: 1.15;
+  --lh-body: 1.35;
+
+  /* motion: every decorative transition or animation lasts at least --dur-soft */
+  --dur-soft: 400ms;
+  --dur-slow: 700ms;
+  --dur-lift: 400ms;
+  --dur-float: 900ms;
+  --stagger: 60ms;
+  --ease: cubic-bezier(0.45, 0, 0.25, 1);
+}

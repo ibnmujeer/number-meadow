@@ -1,0 +1,88 @@
+/* The Grown-ups screens (step 3; docs/STYLE.md section 18): Number Meadow tokens only. Calm flat paper cards, body
+   text at --fs-s (16 px, the STYLE body minimum), 64 px targets, a visible focus ring on every control, no chart. */
+.adult-screen { gap: var(--sp-3); padding-bottom: var(--sp-6); font-size: calc(var(--fs-s) * var(--ad-zoom, 1)); }
+/* Larger text (Step 12, D12-7): Grown-ups screens only, this session only, nothing saved. Every type size grows by half (--ad-zoom, a runtime name of STYLE 3.2) on the screen
+   itself, so only text on an adult screen changes; the 64 px target minimum and every child screen stay as they are. */
+.adult-screen.ad-large { --ad-zoom: 1.5; }
+.adult-screen.ad-large .pin-key { min-height: 4.5rem; } /* the 3 rem digits need more than 64 px of key */
+.adult-screen.ad-large .pin-del { font-size: 1.25rem; } /* the word Delete must fit its 72 px key */
+.ad-title { font-size: calc(var(--fs-l) * var(--ad-zoom, 1)); overflow-wrap: anywhere; } /* a 30-letter nickname with no space must wrap (audit A7) */
+.ad-body { display: flex; flex-direction: column; gap: var(--sp-3); }
+.ad-card {
+  display: flex; flex-direction: column; gap: var(--sp-3); padding: var(--sp-4);
+  background: var(--paper); border: 2px solid var(--edge); border-radius: var(--r-lg); box-shadow: var(--shadow-1);
+}
+.ad-h { font-size: calc(var(--fs-m) * var(--ad-zoom, 1)); font-weight: var(--fw-strong); line-height: var(--lh-tight); overflow-wrap: anywhere; }
+.ad-text { font-size: calc(var(--fs-s) * var(--ad-zoom, 1)); line-height: var(--lh-body); overflow-wrap: anywhere; }
+.ad-note { color: var(--ink-soft); }
+.ad-msg { font-weight: var(--fw-strong); }
+.ad-msg:empty { display: none; }
+.ad-label { display: block; font-size: calc(var(--fs-s) * var(--ad-zoom, 1)); font-weight: var(--fw-strong); }
+/* Buttons: quiet paper by default, the teal accent for the one main step, the sunflower fill when a toggle is on. */
+.ad-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2);
+  min-width: max(var(--tap-min), 4rem); min-height: max(var(--tap-min), 4rem); padding: var(--sp-2) var(--sp-4);
+  font-size: calc(var(--fs-m) * var(--ad-zoom, 1)); line-height: var(--lh-tight); text-align: center;
+}
+.ad-btn svg { width: 1.6rem; height: 1.6rem; flex: none; }
+.ad-go { background: var(--go); border-color: var(--go-deep); color: var(--ink); }
+/* A pressed toggle: the sunflower fill AND a 4 px border (thickness is the second cue, STYLE 4.2), same outer size. */
+.ad-toggle[aria-disabled="true"] { background: var(--sunk); cursor: default; } /* Voice while sound is off */
+.ad-toggle[aria-pressed="true"] {
+  background: var(--pick); border-color: var(--pick-deep); color: var(--ink);
+  border-width: 4px; padding: calc(var(--sp-2) - 2px) calc(var(--sp-4) - 2px);
+}
+.ad-actions, .ad-choices { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.ad-actions .ad-btn { flex: 1 1 12rem; }
+.ad-group { display: flex; flex-direction: column; gap: var(--sp-2); }
+/* The child list: one row button per child, the buddy face and the nickname. */
+.ad-rows { display: flex; flex-direction: column; gap: var(--sp-2); }
+.ad-row { justify-content: flex-start; width: 100%; text-align: left; }
+.ad-face { width: 3rem; height: 3rem; } /* 48 px: a drawn buddy is never below 40 px (STYLE 8) */
+.ad-btn .ad-face svg { width: 100%; height: 100%; }
+.ad-row-text { display: flex; flex-direction: column; min-width: 0; }
+.ad-row-name { overflow-wrap: anywhere; }
+.ad-row-sub { font-size: calc(var(--fs-s) * var(--ad-zoom, 1)); font-weight: var(--fw-body); color: var(--ink-soft); }
+/* Text fields and the read-only report box. */
+.ad-field { display: flex; flex-direction: column; gap: var(--sp-1); }
+.ad-field input, .ad-box {
+  width: 100%; min-width: max(var(--tap-min), 4rem); min-height: max(var(--tap-min), 4rem); padding: var(--sp-2) var(--sp-3);
+  font: inherit; font-size: calc(var(--fs-m) * var(--ad-zoom, 1)); color: var(--ink); background: var(--paper);
+  border: 2px solid var(--edge); border-radius: var(--r-md);
+}
+.ad-box { font-size: calc(var(--fs-s) * var(--ad-zoom, 1)); line-height: var(--lh-body); min-height: 16rem; resize: vertical; white-space: pre-wrap; overflow-wrap: anywhere; overflow-x: hidden; overflow-y: auto; } /* soft wrap on screen only; the copied text keeps its lines */
+.adult-screen input:focus-visible, .adult-screen textarea:focus-visible, .ad-hold:focus-visible { outline: 4px solid var(--focus); outline-offset: 2px; }
+.ad-offscreen { position: fixed; top: 0; left: 0; width: 4rem; height: 4rem; opacity: 0; pointer-events: none; }
+/* The gate: hold to open (a fill on the button, never a number) and the PIN pad. */
+.ad-gate { align-items: center; text-align: center; }
+.ad-hold {
+  width: 100%; max-width: 20rem; min-height: 4.5rem; overflow: hidden; isolation: isolate;
+  font-size: calc(var(--fs-l) * var(--ad-zoom, 1)); border-color: var(--go-deep);
+}
+.hold-fill {
+  position: absolute; inset: 0; z-index: -1; background: var(--go); border-radius: var(--r-md);
+  transform: scaleX(0); transform-origin: left center; transition: none;
+}
+.ad-hold.holding .hold-fill { transform: scaleX(1); transition: transform var(--hold-ms, 2s) linear; } /* --hold-ms: set by adultKit.wireHold from config.adults.gate.holdMs */
+.ad-hold-label { position: relative; }
+.pin-dots { display: flex; gap: var(--sp-3); justify-content: center; }
+.pin-dot { width: 1.25rem; height: 1.25rem; border: 2px solid var(--edge); border-radius: 50%; background: var(--paper); }
+.pin-dot.on { background: var(--ink); border-color: var(--ink); }
+.pin-pad { display: grid; grid-template-columns: repeat(3, max(var(--tap-min), 4.5rem)); gap: var(--sp-2); justify-content: center; }
+.pin-key { font-size: calc(var(--fs-xl) * var(--ad-zoom, 1)); padding: 0; }
+.pin-del { font-size: calc(var(--fs-s) * var(--ad-zoom, 1)); }
+.ad-sum { font-size: calc(var(--fs-xl) * var(--ad-zoom, 1)); font-weight: var(--fw-strong); }
+.ad-quiet { border-color: var(--edge); }
+/* The storage banner (Step 12, D12-8): Grown-ups screens only. Warm fill with ink text (never --ink-soft on a colour, STYLE 4). */
+.ad-alert { background: var(--warm); border-color: var(--warm-deep); border-width: 4px; }
+.ad-notice { border-color: var(--warm-deep); }
+/* The child page: plain lists, a bold lead word, a small heading per skill. */
+.ad-list { margin: 0; padding-left: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-1); }
+.ad-strong { font-weight: var(--fw-strong); }
+.ad-h3 { font-size: calc(var(--fs-s) * var(--ad-zoom, 1)); font-weight: var(--fw-strong); margin: var(--sp-2) 0 0; }
+/* Forced colours (Windows High Contrast, Step 12 audit A7): the browser drops background colours, so the two signs that rely on one
+   (the Hold fill and a typed PIN dot) use system colours (the label keeps the browser's own text plate, so it stays readable). Nothing changes when forced colours are off. */
+@media (forced-colors: active) {
+  .hold-fill { forced-color-adjust: none; background: Highlight; }
+  .pin-dot.on { forced-color-adjust: none; background: CanvasText; border-color: CanvasText; }
+}

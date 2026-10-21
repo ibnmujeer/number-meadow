@@ -1,0 +1,108 @@
+/* Number Meadow mission screen (art spec 4): header, progress steps, question text, the stage, the hint,
+   the answer row, build controls and the Next card. The stage takes the space that is left. */
+.screen.mission { height: 100%; min-height: 0; }
+.mission .bar { gap: 0.25rem; }
+.mission-title { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.12; }
+.world-name { font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mission-no { font-size: clamp(1rem, 5.3vw, 1.2rem); font-weight: var(--fw-strong); white-space: nowrap; }
+.kind-check .mission-no { white-space: normal; }
+/* Step 8: the wide "All done" stop button leaves less room, so the placement title wraps rather than clipping (as Free Play does). */
+.kind-place .world-name { white-space: normal; overflow-wrap: anywhere; }
+#mission-buddy { width: 3rem; height: 3rem; }
+
+/* Progress: eight rounded steps; a finished mission fills its step with the world accent and its deep border. */
+.progress { display: flex; gap: 0.25rem; padding: 0.4rem 0.1rem 0; flex: none; }
+.pstep {
+  position: relative; flex: 1; height: 1.3rem;
+  background: var(--paper); border: 2px solid var(--edge); border-radius: var(--r-pill);
+}
+.pstep.current { border: 4px solid var(--pick-deep); }
+.pstep.filled { background: var(--wc); border: 2px solid var(--wcd); }
+/* Same box and height as the steps, so fitStage gives the stage the same room. */
+.run-count {
+  flex: none; display: flex; align-items: flex-end; justify-content: center; box-sizing: content-box;
+  height: 1.3rem; margin: 0; padding: 0.4rem 0.1rem 0; font-size: 1.1rem; font-weight: var(--fw-strong); line-height: 1.3rem;
+}
+
+#q-text { flex: none; margin: 0; text-align: center; font-size: var(--fs-q); font-weight: var(--fw-strong); line-height: var(--lh-tight); }
+.q-line { display: block; font-size: var(--fs-q); }
+
+.stage {
+  --u: 20px;
+  flex: 1 1 0; min-height: 8rem; position: relative; overflow: hidden;
+  display: flex; align-items: flex-end; justify-content: center; padding: var(--sp-3);
+  background: var(--stage); border-radius: var(--r-lg);
+}
+.hint {
+  flex: none; margin: 0; padding: 0.3rem 0.6rem; font-size: 1.2rem; line-height: 1.25; text-align: center;
+  background: var(--paper); border: 2px solid var(--edge); border-radius: var(--r-md);
+}
+
+/* Answers (review NIT 10): paper fill, 2 px edge border, ink text; the chosen state uses --pick. */
+.answers { flex: none; display: flex; gap: var(--sp-2); padding: 0 var(--sp-2) 0.3rem; }
+.choice {
+  flex: 1; min-width: 0; height: 4.6rem; padding: 0; font-size: var(--fs-choice); line-height: 1;
+  background: var(--paper); border: 2px solid var(--edge); color: var(--ink);
+}
+/* Narrow phones (320 px wide): three side-by-side answers of three digits at the full answer size (audit A3: "100" is 95 px wide) need
+   the row to use the whole stage width, so the row loses its side padding and its gap shrinks to 4 px; the digits sit 2 per cent
+   closer. The answer text keeps its full size (never under 50 px) and every button stays 72 px or more. */
+@media (max-width: 340px) {
+  .answers { padding-left: 0; padding-right: 0; gap: var(--sp-1); }
+  .choice { letter-spacing: -0.02em; }
+}
+/* One label would spill out of its button (a four-digit answer in a third of a 320 or 360 px phone): the three answers stack, each full width
+   and 72 px or more tall, as the big-number, decimal and fraction answers always did. The prompt card shrinks a little to leave room. */
+.screen.answers-stacked .answers { flex-direction: column; gap: var(--sp-1); }
+.screen.answers-stacked .choice { flex: none; width: 100%; height: 4.6rem; }
+.screen.answers-stacked .b1-card, .screen.answers-stacked .b2-card { padding: 0.25rem 0.75rem; line-height: 1.1; }
+.screen.answers-stacked .b1-line, .screen.answers-stacked .b2-line { font-size: 28px; }
+/* Phones 620 px tall or less (320 x 568): a three-line question over three stacked answers left the third button below the screen edge. The answers
+   take exactly 72 px each (4.5 rem at the 16 px root of such a phone), a 3 px gap and no spare padding below, and the stage may shrink to 5 rem
+   (audit: nothing past the edge). Wider specificity than the per-activity stacking rules, which keep 4.6 rem on every taller screen. */
+@media (max-height: 620px) {
+  .screen.mission[data-type] .answers { gap: 0.2rem; padding-bottom: 0; }
+  .screen.mission[data-type] .choice { height: 4.5rem; }
+  .screen.mission .stage { min-height: 5rem; }
+}
+/* Three stacked answers plus a three-line question plus the hint note do not fit a phone 700 px tall or less: the hint note then uses the 16 px
+   body size of STYLE 4 instead of 1.2 rem (two lines instead of three) and the stage may shrink to 5 rem. Only screens whose answers stand one
+   over the other get this (class answers-col, set by counters.fitStage); side-by-side answers keep the larger hint. */
+@media (max-height: 700px) {
+  .screen.answers-col .hint { font-size: 1rem; line-height: 1.2; padding: 0.1rem 0.5rem; }
+  .screen.answers-col .stage { min-height: 5rem; padding: var(--sp-2); }
+  .screen.answers-col[data-type] .answers { gap: 0.2rem; padding-bottom: 0; }
+  .screen.answers-col[data-type] .choice { height: 4.5rem; }
+}
+.choice.right { background: var(--pick); border-color: var(--pick-deep); }
+.choice.used, .tower.used { background: var(--sunk); color: var(--ink-soft); border-color: var(--edge); box-shadow: none; }
+.tower.used .stack { opacity: 0.5; } /* fade the tower as one piece */
+.build-controls { display: flex; gap: var(--sp-2); width: 100%; }
+.ctl {
+  flex: 1; min-width: 0; height: 4.6rem; padding: 0 0.3rem; display: flex; align-items: center; justify-content: center; gap: 0.3rem;
+  font-size: 2.4rem; line-height: 1; background: var(--paper); border: 2px solid var(--edge); color: var(--ink);
+}
+.ctl svg { width: 2.2rem; height: 2.2rem; }
+.ctl-add { flex: 1.3; background: var(--go); border-color: var(--go-deep); }
+.ctl-undo { flex: 0.8; }
+/* Done: a tick of at least 16 px that never shrinks, and room on both sides of the label. */
+.ctl-done { flex: 1.2; padding: 0 var(--sp-2); gap: var(--sp-1); background: var(--ok); border-color: var(--ok-deep); font-size: var(--fs-l); }
+.ctl-done svg { flex: none; width: max(16px, 1.1rem); height: max(16px, 1.1rem); }
+.ctl:disabled { background: var(--sunk); color: var(--ink-soft); box-shadow: none; }
+.ctl:active:not(:disabled), .choice:active:not(:disabled) { background: var(--pick); }
+
+/* The Next card overlay after a right answer. */
+.overlay {
+  position: fixed; inset: 0; z-index: 20; display: flex; align-items: flex-end; justify-content: center;
+  padding: 1rem 0.75rem calc(1.2rem + env(safe-area-inset-bottom, 0px)); background: var(--scrim);
+}
+.next-box {
+  width: 100%; max-width: 26rem; display: flex; flex-direction: column; align-items: center; gap: var(--sp-2);
+  padding: 0.9rem 1rem 1.1rem; box-shadow: var(--shadow-2);
+}
+/* The quiet growth sentence (step 4, P2): a sprout and one calm line under the praise. */
+.growth-line { display: flex; align-items: center; justify-content: center; gap: var(--sp-2); margin: 0; font-size: 1.2rem; font-weight: var(--fw-strong); line-height: var(--lh-tight); text-align: center; }
+.growth-line .sprout { flex: none; display: block; width: 2rem; height: 2rem; color: var(--moss-deep); }
+.growth-line .sprout svg { display: block; width: 100%; height: 100%; }
+.praise { font-size: var(--fs-xl); font-weight: var(--fw-strong); line-height: var(--lh-tight); text-align: center; }
+.next-box .big-btn { width: 100%; min-height: 4.6rem; font-size: var(--fs-xl); }
